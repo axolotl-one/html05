@@ -1,3 +1,25 @@
 * {
     box-sizing: border-box;
 }
+
+header, main, canvas, footer{
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 15%;
+}
+
+main{
+    padding: 5px 5%;
+    overflow: auto;
+}
+
+#grafica {
+    /* El ancho y alto del canvas serán controlados por Chart.js */
+    display: block; /* Asegura que el canvas se comporte como un bloque */
+}

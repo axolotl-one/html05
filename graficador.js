@@ -1,10 +1,11 @@
+let graficaHecha;
 document.getElementById("graficaConfig").addEventListener("submit", function(e){
     e.preventDefault();
     const grafica = document.getElementById("grafica").getContext("2d");
+    const lado = document.getElementById("outputLado").value;
 
     function funcionDistancia(recorrido)
     {
-        const lado = document.getElementById("inputLado").value;
         const perim = lado * 4;
         const vueltas = Math.floor(recorrido / perim);
         const recorridoEnVuelta = recorrido % perim;
@@ -19,12 +20,14 @@ document.getElementById("graficaConfig").addEventListener("submit", function(e){
         }
     }
 
+    if(graficaHecha)
+        graficaHecha.destroy();
 
     //Datos para graficar
-    const numPuntos = 500; // Numero de partituras
+    const numPuntos = document.getElementById("outputTotalPartes").value; // Numero de partituras
+    const recorridoMaximo = document.getElementById("outputMaxRecord").value;
     const datosX = [];
     const datosY = [];
-    const recorridoMaximo = 160;
 
     for (let i = 0; i <= numPuntos; i++) {
         const x = (recorridoMaximo * i) / numPuntos;
@@ -35,7 +38,7 @@ document.getElementById("graficaConfig").addEventListener("submit", function(e){
 
 
     // Crear la gráfica con Chart.js
-    const miGrafica = new Chart(grafica, {
+    graficaHecha = new Chart(grafica, {
         type: 'line',
         data: {
             labels: datosX,
@@ -53,14 +56,19 @@ document.getElementById("graficaConfig").addEventListener("submit", function(e){
                     title: {
                         display: true,
                         text: 'Recorrido (x)'
-                    }
+                    },
+                    // Establecer un rango inicial similar al del eje Y
+                    min: 0,
+                    max: recorridoMaximo // Mantener el recorrido máximo
                 },
                 y: {
                     title: {
                         display: true,
                         text: 'Distancia al Origen (y)'
                     },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    // Establecer un rango inicial basado en la distancia máxima esperada
+                    max: Math.ceil(Math.sqrt(2*lado*lado)) // Diagonal Maxima
                 }
             },
             plugins: {
@@ -73,6 +81,20 @@ document.getElementById("graficaConfig").addEventListener("submit", function(e){
                     display: true,
                     position: 'top'
                 }
+            },
+
+            //Habilitar zoom y scroll
+            interaction: {
+                 mode: 'index',
+                 intersect: false
+            },
+            pan: {
+                enabled: true,
+                mode: 'xy'
+            },
+            zoom: {
+                enabled: true,
+                mode: 'xy'
             }
         }
     });
