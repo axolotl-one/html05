@@ -11,12 +11,18 @@
         <h1>Métodos de Minimización de Costos de Transporte (IO)</h1>
     </header>
     <main>
-        <table id="tab">
-            <tr><th>origen/destino</th><th>destino 1</th><th>destino 2</th></tr>
-            <tr><th>origen 1</th><td></td><td></td></tr>
-            <tr><th>origen 2</th><td></td><td></td></tr>
-        </table>
-        <input type="number" id="inputValor" placeholder="Ingresa un valor">
+        <section>
+            <label>Columnas: </label>
+            <button id="rest-column"> - </button>
+            <span id="n-columns">4</span>
+            <button id="plus-column"> + </button>
+            <label>Filas: </label>
+            <button id="rest-row"> - </button>
+            <span id="n-rows">4</span>
+            <button id="plus-row"> + </button>
+        </section>
+        <section id="table">
+        </section>
     </main>
     <script type="module" src="./tabla.js"></script>
 </body>
