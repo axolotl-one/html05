@@ -9,18 +9,28 @@
 <body>
     <header>
         <h1>Métodos de Minimización de Costos de Transporte (IO)</h1>
+        <nav>
+            <section>
+                <p>Selecciona un Método:</p>
+                <button id="btnMEN">Esquina Noroeste</button>
+                <button id="btnMCM">Costo Mínimo</button>
+                <button id="btnMAV">Aproximación de Vogel</button>
+                <button id="btnMCA">Cruce del Arrollo</button>
+            </section>
+            <section>
+                <label>Columnas Destino: </label>
+                <button id="rest-column"> - </button>
+                <span id="n-columns">2</span>
+                <button id="plus-column"> + </button>
+                <span>:</span>
+                <label>Filas Origen: </label>
+                <button id="rest-row"> - </button>
+                <span id="n-rows">2</span>
+                <button id="plus-row"> + </button>
+            </section>
+        </nav>
     </header>
     <main>
-        <section>
-            <label>Columnas: </label>
-            <button id="rest-column"> - </button>
-            <span id="n-columns">4</span>
-            <button id="plus-column"> + </button>
-            <label>Filas: </label>
-            <button id="rest-row"> - </button>
-            <span id="n-rows">4</span>
-            <button id="plus-row"> + </button>
-        </section>
         <section id="table">
         </section>
     </main>

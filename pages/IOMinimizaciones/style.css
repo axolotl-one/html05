@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    line-height: 2em;
+}
+
+span{
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+}
+
+input{
+    max-width: 50%;
+}
