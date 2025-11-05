@@ -5,6 +5,8 @@ let costos = [[0,0],[0,0]]
 let unidades = [[0,0],[0,0]]
 const ofertas = [0,0]
 const demandas = [0,0]
+//const destinos = ['Destino 1', 'Destino 2']
+//const origenes = ['Origen 1', 'Origen 2']
 
 const renderTable = () => {
   table.textContent = '';
@@ -24,12 +26,13 @@ const renderTable = () => {
     row.appendChild(orig);
     for(let j = 0; j<c; j++) {
       const cell = document.createElement('span');
-      cell.appendChild(generarCelda('c-' + i + '-' + j,costos[i][j]));
-      cell.appendChild(generarCelda('u-' + i + '-' + j,unidades[i][j]));
+      cell.id = 'celda-'+(i+1)+(j+1)
+      cell.appendChild(generarCelda('u-' + (i+1) + '-' + (j+1),unidades[i][j]));
+      cell.appendChild(generarCelda('c-' + (i+1) + '-' + (j+1),costos[i][j]));
       row.appendChild(cell);
     }
     const oferta = document.createElement('span')
-    oferta.appendChild(generarCelda('of'+i,ofertas[i]))
+    oferta.appendChild(generarCelda('of'+(i+1),ofertas[i]))
     row.appendChild(oferta)
     table.appendChild(row)
   }
@@ -56,7 +59,7 @@ const handleLength = (element, isRows, isPlus) => {
   element.textContent = isPlus ? parseInt(element.textContent)+1 : parseInt(element.textContent)-1;
   isRows ? updateRowsData(costos,isPlus) & updateRowsData(unidades,isPlus) // Si son filas, las actualiza
         : updateColumnsData(costos,isPlus) & updateColumnsData(unidades,isPlus); // sino actualiza las columnas
-  isRows ? isPlus ? ofertas.push(0) : ofertas.pop() //
+  isRows ? isPlus ? ofertas.push(0) : ofertas.pop()
   : isPlus ? demandas.push(0) : ofertas.pop();
   renderTable();
 }
@@ -94,5 +97,43 @@ document.getElementById('rest-column').addEventListener('click', ()=>{handleLeng
 document.getElementById('plus-column').addEventListener('click', ()=>{handleLength(nColumns,false,true)});
 document.getElementById('rest-row').addEventListener('click', ()=>{handleLength(nRows,true,false)});
 document.getElementById('plus-row').addEventListener('click', ()=>{handleLength(nRows,true,true)});
+document.getElementById('btnMEN').addEventListener('click', ()=>{captura(costos,'c'),captura(unidades,'u'),
+  capturaArray(ofertas,'of'),capturaArray(demandas,'d')+esquinaNoroeste()})
+
+const captura = (datax,id) => {
+  for(let i = 0; i<datax.length; i++){
+    for(let j = 0; j<datax[0].length; j++){
+      datax[i][j] = parseInt(document.getElementById(id+'-'+(i+1)+'-'+(j+1)).value)
+    }
+  }
+}
+
+const capturaArray = (datax,id) => {
+  for(let i = 0; i<datax.length; i++){
+    datax[i] = parseInt(document.getElementById(id+(i+1)).value)
+  }
+}
+
+const esquinaNoroeste = () => {
+  const copyOfertas = [...ofertas]
+  const copyDemandas = demandas.slice() //structuredClone(demandas)
+  for(let c = 0; c<costos[0].length; c++){
+    for(let f = 0; f<costos.length; f++){
+      console.log(copyOfertas[f] + ' | ' + copyDemandas[c])
+      if(copyDemandas[c]===0) { unidades[f][c] = 0; break }
+      if(copyDemandas[c]<=copyOfertas[f]) {
+        unidades[f][c] = copyDemandas[c];
+        copyOfertas[f]-=copyDemandas[c];
+        copyDemandas[c] = 0;
+      }else{
+        unidades[f][c] = copyOfertas[f]
+        copyDemandas[c]-=copyOfertas[f]
+        copyOfertas[f] = 0;
+      }
+      console.log(copyOfertas[f] + ' | ' + copyDemandas[c])
+    }
+  }
+  renderTable();
+}
 
 renderTable();
