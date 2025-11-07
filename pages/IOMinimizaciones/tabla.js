@@ -85,7 +85,9 @@ document.getElementById('plus-column').addEventListener('click', ()=>{handleLeng
 document.getElementById('rest-row').addEventListener('click', ()=>{handleLength(nRows,true,false)});
 document.getElementById('plus-row').addEventListener('click', ()=>{handleLength(nRows,true,true)});
 document.getElementById('btnMEN').addEventListener('click', ()=>{captura(costos,'c'),captura(unidades,'u'),
-  capturaArray(ofertas,'of'),capturaArray(demandas,'d')+esquinaNoroeste()})
+  capturaArray(ofertas,'of'),capturaArray(demandas,'d'), esquinaNoroeste()})
+document.getElementById('btnMCM').addEventListener('click', ()=>{captura(costos,'c'),captura(unidades,'u'),
+  capturaArray(ofertas,'of'),capturaArray(demandas,'d'), costoMinimo()})
 
 const captura = (datax,id) => {
   for(let i = 0; i<datax.length; i++){
@@ -125,6 +127,43 @@ const esquinaNoroeste = () => {
         logProcess.push('\tFalta por cubrir ' + copyDemandas[c] + ' unidades hacia ' + destinos[c]);
       }
     }
+  }
+  getTotal();
+  renderTable();
+  printLogProcess();
+}
+
+const costoMinimo = () => {
+  logProcess.push('Iniciando Método de Costo Mínimo');
+  const copyOfertas = [...ofertas];
+  const copyDemandas = demandas.slice();
+  const copyCostos = structuredClone(costos)
+  const min = [costos[0][0],0,0];
+  
+  while(true){
+    for(let f = 0; f<costos.length; f++){
+      for(let c = 0; c<costos[0].length; c++){
+        if(min[0]>copyCostos[f][c] && copyCostos[f][c])
+          { min[0] = costos[f][c], min[1]=f, min[2]=c, copyCostos[f][c] = false }
+      }
+    }
+    if(copyDemandas[min[2]] === 0 || copyOfertas[min[1]]) { continue; }
+    if(copyDemandas[min[2]] <= copyOfertas[min[1]]){
+      unidades[min[1]][min[2]] = copyDemandas[min[2]];
+      copyOfertas[min[1]]-=copyDemandas[min[2]];
+      copyDemandas[min[2]] = 0;
+      logProcess.push('\t' + unidades[min[1]][min[2]] + ' unidades de ' + origenes[min[1]] + ' asignadas para ' + destinos[min[2]]);
+      logProcess.push('\tDemanda de ' + destinos[min[2]] + ' cubierta');
+      logProcess.push('\tQuedan ' + copyOfertas[min[2]] + ' unidades en ' + origenes[min[1]]);
+    }else{
+      unidades[min[1]][min[2]] = copyOfertas[min[1]];
+      copyDemandas[min[2]]-=copyOfertas[min[1]];
+      copyOfertas[min[1]] = 0;
+      logProcess.push('\t' + unidades[min[1]][min[2]] + ' unidades de ' + origenes[min[1]] + ' asignadas para ' + destinos[min[2]]);
+      logProcess.push('\t' + origenes[min[1]] + ' se ha quedado sin unidades para distribuir');
+      logProcess.push('\tFalta por cubrir ' + copyDemandas[min[2]] + ' unidades hacia ' + destinos[min[2]]);
+    }
+    if(copyDemandas.every(0)){ break }
   }
   getTotal();
   renderTable();
