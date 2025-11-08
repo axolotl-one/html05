@@ -138,23 +138,28 @@ const costoMinimo = () => {
   const copyOfertas = [...ofertas];
   const copyDemandas = demandas.slice();
   const copyCostos = structuredClone(costos)
-  const min = [costos[0][0],0,0];
-  
-  while(true){
+  console.log
+  const max = getMax();
+
+  while(!copyDemandas.every((n) => { return n === 0})){
+    const min = [max,0,0];
     for(let f = 0; f<costos.length; f++){
       for(let c = 0; c<costos[0].length; c++){
         if(min[0]>copyCostos[f][c] && copyCostos[f][c])
-          { min[0] = costos[f][c], min[1]=f, min[2]=c, copyCostos[f][c] = false }
+          { min[0] = costos[f][c]; min[1]=f; min[2]=c }
       }
     }
-    if(copyDemandas[min[2]] === 0 || copyOfertas[min[1]]) { continue; }
+    console.log(copyCostos[min[1]][min[2]]);
+    copyCostos[min[1]][min[2]] = false;
+    console.log(copyCostos[min[1]][min[2]]);
+    if(copyDemandas[min[2]] === 0 || copyOfertas[min[1]] === 0) { unidades[min[1]][min[2]] = 0; continue; }
     if(copyDemandas[min[2]] <= copyOfertas[min[1]]){
       unidades[min[1]][min[2]] = copyDemandas[min[2]];
       copyOfertas[min[1]]-=copyDemandas[min[2]];
       copyDemandas[min[2]] = 0;
       logProcess.push('\t' + unidades[min[1]][min[2]] + ' unidades de ' + origenes[min[1]] + ' asignadas para ' + destinos[min[2]]);
       logProcess.push('\tDemanda de ' + destinos[min[2]] + ' cubierta');
-      logProcess.push('\tQuedan ' + copyOfertas[min[2]] + ' unidades en ' + origenes[min[1]]);
+      logProcess.push('\tQuedan ' + copyOfertas[min[1]] + ' unidades en ' + origenes[min[1]]);
     }else{
       unidades[min[1]][min[2]] = copyOfertas[min[1]];
       copyDemandas[min[2]]-=copyOfertas[min[1]];
@@ -163,7 +168,7 @@ const costoMinimo = () => {
       logProcess.push('\t' + origenes[min[1]] + ' se ha quedado sin unidades para distribuir');
       logProcess.push('\tFalta por cubrir ' + copyDemandas[min[2]] + ' unidades hacia ' + destinos[min[2]]);
     }
-    if(copyDemandas.every(0)){ break }
+    //if(copyDemandas.every(0)){ break }
   }
   getTotal();
   renderTable();
@@ -180,6 +185,14 @@ const getTotal = () => {
     }
   }
   logProcess.push('Costo Total: ' + costoTotal);
+}
+
+const getMax = () => {
+  let max = 0
+  for(let f = 0; f<costos.length; f++)
+    for(let c = 0; c<costos[0].length; c++)
+      if(max<costos[f][c]) max = costos[c][f]
+  return max
 }
 
 const printLogProcess = () => {
