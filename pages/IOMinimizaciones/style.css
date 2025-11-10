@@ -7,9 +7,40 @@
 span{
     display: inline-block;
     text-align: center;
-    width: 200px;
+    width: 170px;
+}
+
+.celda-span input{
+    width: 50%;
 }
 
 input{
-    max-width: 50%;
+    max-width: 100%;
+}
+
+@media screen and (max-width:800px){
+    h1{
+        line-height: initial;
+    }
+    main{
+        min-width: 100%;
+        font-size: 12px;
+    }
+
+    section{
+        width: auto;
+    }
+
+    input{
+        width: 100px;
+        font-size: 12px;
+    }
+
+    .celda-span input{
+        width: 50px;
+    }
+
+    span{
+        display: inline;
+    }
 }

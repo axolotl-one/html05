@@ -28,6 +28,7 @@ const renderTable = () => {
     for(let j = 0; j<c; j++) {
       const cell = document.createElement('span');
       cell.id = 'celda-' + (i+1) + '-' + (j+1);
+      cell.classList.add('celda-span');
       cell.appendChild(generarCelda('u-' + (i+1) + '-' + (j+1), unidades[i][j]));
       cell.appendChild(generarCelda('c-' + (i+1) + '-' + (j+1), costos[i][j]));
       row.appendChild(cell);
@@ -81,7 +82,8 @@ document.getElementById('rest-row').addEventListener('click', ()=>{handleLength(
 document.getElementById('plus-row').addEventListener('click', ()=>{handleLength(nRows,true,true)});
 document.getElementById('btnMEN').addEventListener('click', ()=>{captureData(); esquinaNoroeste()});
 document.getElementById('btnMCM').addEventListener('click', ()=>{captureData(); costoMinimo()});
-document.getElementById('btnMAV').addEventListener('click', ()=>{captureData(); costoMinimoPorBusqueda()});
+document.getElementById('btnMAV').addEventListener('click', ()=>{captureData(); aproxVogel()});
+document.getElementById('btnMCA').addEventListener('click', ()=>{captureData(); costoMinimoPorBusqueda()})
 
 const captureData = () =>{
   captureMatrix(costos, 'c');
@@ -182,6 +184,169 @@ const costoMinimo = () => {
   getTotal();
   renderTable();
   printLogProcess();
+}
+
+const aproxVogel = () => {
+  logProcess.push('Iniciando Método por Aproximación de Vogel');
+  const copyOfertas = [...ofertas];
+  const copyDemandas = [...demandas];
+  const copyCostos = structuredClone(costos);
+  const lim = Math.max(...costos.flat()) + 1;
+
+  //while(copyDemandas.some((n) => { return n !== 0 })){
+  for(let z = 0; z < costos.length + costos[0].length - 2; z++){
+    // 1. Buscar los dos costos mas bajos por columna y por fila y calcular su diferencia
+    const penalties = [];
+    logProcess.push('Iniciando Ciclo ' + (z+1));
+    logProcess.push('Calculando Penalización por Fila Origen y por Columna Destino');
+    for(let f = 0; f<costos.length; f++){ // Penalizaciones por Fila
+      const minimos = [copyCostos[f][0],copyCostos[f][1]];
+      sortMin(minimos);
+      for(let c = 2; c<costos[0].length; c++){
+        if(copyCostos[f][c]===lim) continue;
+        if(minimos[1]>copyCostos[f][c]) minimos[1] = copyCostos[f][c];
+        sortMin(minimos);
+        console.log(minimos);
+      }
+      if(minimos[1]===lim) minimos[1] = minimos[0];
+      penalties.push({value: minimos[1]-minimos[0], index: f, isRow: true});
+      console.log(penalties[f]);
+    }
+    
+    for(let c = 0; c<costos[0].length; c++){ // Penalizaciones por Columna
+      const minimos = [copyCostos[0][c],copyCostos[1][c]];
+      sortMin(minimos);
+      for(let f = 2; f<costos.length; f++){
+        if(copyCostos[f][c]===lim) continue;
+        if(minimos[1]>copyCostos[f][c]) minimos[1] = copyCostos[f][c];
+        sortMin(minimos);
+        console.log(minimos);
+      }
+      if(minimos[1]===lim) minimos[1] = minimos[0];
+      penalties.push({value: minimos[1]-minimos[0], index: c, isRow: false});
+      console.log(penalties[c+costos.length]);
+    }
+
+    penalties.forEach((p)=>{
+      logProcess.push('\tPenalización de ' + (p.isRow ? origenes[p.index]: destinos[p.index]) + ': '  + p.value);
+    })
+
+    // 2. Seleccionar la columna o fila con la penalización más alta, si hay empate, también incluirlo
+    const pvalue = penalties.map((p)=>p.value);
+    console.log(pvalue);
+    const pmax = Math.max(...pvalue);
+    console.log(pmax);
+    const maximos = penalties.filter((p)=>{if(p.value === pmax) return p});
+    console.log(maximos);
+
+    maximos.forEach((p)=>{
+      logProcess.push('Penalización Máxima de ' + p.value + ' en ' + (p.isRow ? 'fila de ' + origenes[p.index] : 'columna de ' + destinos[p.index]));
+    })
+
+    const min = [lim,0,0];
+
+    // 3. Llenar en la casilla con el costo más bajo la cantidad maxima posible de oferta o demanda
+    for(let i = 0; i<maximos.length; i++){
+      if(maximos[i].isRow){
+        for(let c = 0; c<costos[0].length; c++){
+          if(min[0]>copyCostos[maximos[i].index][c]){ 
+            min[0] = copyCostos[maximos[i].index][c];
+            min[1] = maximos[i].index; min[2] = c;
+          }
+        }
+      }
+      else{
+        for(let f = 0; f<costos.length; f++){
+          if(min[0]>copyCostos[f][maximos[i].index]){ 
+            min[0] = copyCostos[f][maximos[i].index];
+            min[1] = f; min[2] = maximos[i].index;
+          }
+        }
+      }
+    }
+
+    logProcess.push('Costo Mínimo Encontrado dentro la Máxima Penalización:');
+    logProcess.push('[' + min[0] + '][Ruta ' + origenes[min[1]] + ' - ' + destinos[min[2]] +']');
+
+    // 4. Descartar la casilla junto con toda la fila o columna agotada o cubierta ???? o cancelar por separado
+    
+    if(copyDemandas[min[2]] === 0 || copyOfertas[min[1]] === 0) {
+      unidades[min[1]][min[2]] = 0;
+      logProcess.push('\tRuta descartada por falta demanda o recursos');
+    }
+    if(copyOfertas[min[1]] === 0 && copyDemandas[min[2]] === 0){
+      for(let f = 0; f<copyCostos.length; f++){
+        copyCostos[f][min[2]] = lim;
+      }
+      for(let c = 0; c<copyCostos[0].length; c++){
+        copyCostos[min[1]][c] = lim;
+      }
+      
+    }
+    if(copyOfertas[min[1]] >= copyDemandas[min[2]] ){
+      for(let f = 0; f<copyCostos.length; f++){
+        copyCostos[f][min[2]] = lim;
+      }
+      unidades[min[1]][min[2]] = copyDemandas[min[2]];
+      copyOfertas[min[1]] -= copyDemandas[min[2]];
+      copyDemandas[min[2]] = 0;
+      logProcess.push('\t' + unidades[min[1]][min[2]] + ' unidades de ' + origenes[min[1]] + ' asignadas para ' + destinos[min[2]]);
+      logProcess.push('\tDemanda de ' + destinos[min[2]] + ' cubierta');
+      logProcess.push('\tQuedan ' + copyOfertas[min[1]] + ' unidades en ' + origenes[min[1]]);
+    }else{
+      for(let c = 0; c<copyCostos[0].length; c++){
+        copyCostos[min[1]][c] = lim;
+      }
+      unidades[min[1]][min[2]] = copyOfertas[min[1]];
+      copyDemandas[min[2]] -= copyOfertas[min[1]];
+      copyOfertas[min[1]] = 0;
+      logProcess.push('\t' + unidades[min[1]][min[2]] + ' unidades de ' + origenes[min[1]] + ' asignadas para ' + destinos[min[2]]);
+      logProcess.push('\t' + origenes[min[1]] + ' se ha quedado sin unidades para distribuir');
+      logProcess.push('\tFalta por cubrir ' + copyDemandas[min[2]] + ' unidades hacia ' + destinos[min[2]]);
+    }
+
+    // 5. Realizar el Bucle
+
+    if(z === costos.length + costos[0].length - 3){
+      logProcess.push('Última Asignación por descarte');
+      for(let f = 0; f<costos.length; f++){
+        for(let c = 0; c<costos[0].length; c++){
+          if(copyCostos[f][c]!==lim) {
+            unidades[f][c] = copyOfertas[f];
+            copyDemandas[c] = 0;
+            logProcess.push('\t' + copyOfertas[f] + ' asignadas para ' + destinos[c]);
+          }
+        }
+      }
+      break;
+    }
+  }
+  
+  getTotal();
+  renderTable();
+  printLogProcess();
+}
+
+/*
+const penalty = (penalties, copyCostos, isRow) => {
+  for(let i = 0; i<isRow ? costos.length : costos[0].length; i++){
+    const minimos = isRow ? [copyCostos[i][0],copyCostos[i][1]] : [copyCostos[0][i],copyCostos[1][i]];
+    sortMin(minimos);
+    for(let j = 2; j<isRow ? costos[0].length : costos.length; j++){
+      if(copyCostos[i][j]===lim) continue;
+      if(minimos[1]>copyCostos[i][j]) minimos[1] = copyCostos[i][j];
+      sortMin(minimos);
+      console.log(minimos);
+    }
+    if(minimos[1]===lim) minimos[1] = minimos[0];
+    penalties.push({value: minimos[1]-minimos[0], index: isRow , isRow: isRow})
+    console.log(penalties[f])
+  }
+}
+*/
+
+const sortMin = (arr) => {
+  if(arr[0]>arr[1]) { arr.unshift(arr[1]); arr.pop() };
 }
 
 const getMax = () => {

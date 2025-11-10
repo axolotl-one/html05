@@ -1,1 +1,1 @@
-document.getElementById('version').textContent = 'V3.0.8 Optimización de Procesos y Correción de Errores'
+document.getElementById('version').textContent = 'V3.0.9 Implementación del Método por Aproximación de Vogel'
