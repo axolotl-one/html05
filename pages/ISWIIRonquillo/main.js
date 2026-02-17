@@ -1,5 +1,4 @@
-function cod01(){
-    //Entrada de Datos
+function cod01(){ //Entrada de Datos
     const nombre = prompt('Ingresa tu nombre:');
     const edad = prompt('Ingresa tu edad:');
     const sexo = prompt('Ingresa tu sexo:');
@@ -8,8 +7,7 @@ function cod01(){
     document.writeln(' y tu sexo es ' + sexo + '</p>');
 }
 
-function cod02(){
-    //Estructuras Secuenciales
+function cod02(){ //Estructuras Secuenciales
     const v1 = prompt('Ingresa un valor');
     const v2 = prompt('Ingresa otro valor');
     const suma = v1 + v2;
@@ -26,8 +24,7 @@ function cod02(){
     document.writeln('</p>')
 }
 
-function cod03(){
-    //Estructuras Condicionales
+function cod03(){ //Estructuras Condicionales
     const nombre = prompt('Ingresa tu nombre:');
     const materia = prompt('Ingresa tu materia:');
     const nota = prompt('Ingresa tu nota:');
@@ -36,8 +33,7 @@ function cod03(){
             : document.writeln('Has reprobado la materia de ' + materia + ', ' + nombre)
 }
 
-function cod04(){
-    // Estructuras Condicionales Compuestas
+function cod04(){ // Estructuras Condicionales Compuestas
     const v1 = parseInt(prompt('Ingrese el primer número:'));
     const v2 = parseInt(prompt('Ingrese el segundo número:'));
     if (v1 > v2) {
@@ -49,8 +45,7 @@ function cod04(){
     }
 }
 
-function cod05(){
-    // Estructuras Condicionales Anidadas
+function cod05(){ // Estructuras Condicionales Anidadas
     const califs = [];
     for(let i=0; i<3; i++){
         const cal = parseFloat(prompt('Ingresa calificación ' + (i+1) + ': '));
@@ -67,8 +62,7 @@ function cod05(){
     document.writeln('Reprobaste, hechale más ganas')
 }
 
-function cod06(){
-    // Operadores Lógicos
+function cod06(){ // Operadores Lógicos
     const nums = [];
     for(let i=0; i<3; i++){
         const num = parseFloat(prompt('Ingresa un número: '));
@@ -79,4 +73,54 @@ function cod06(){
     if(nums[1] > nums[0] && nums[1] > nums[2]) { document.writeln('El número mayor es: ' + nums[1]); return }
     if(nums[2] > nums[0] && nums[2] > nums[1]) { document.writeln('El número mayor es: ' + nums[2]); return }
     document.writeln('Ingresa números distintos entre si para ejecutar.')
+}
+
+function cod07(){ // Operadores Lógicos con Condicional
+    const fecha = ['dia','mes','año'];
+    const periodo = ['primer', 'segundo', 'tercer', 'cuarto']
+    for(let i=0; i<3; i++){
+        const x = parseInt(prompt('Ingresa el ' + fecha[i] + ':'))
+        if(isNaN(x)) { alert('El ' + fecha[i] + ' debe ser un número. Vuelve a intentarlo.'); i--; continue }
+        if(x<0 || (x>31 && i==0)) { alert('Ingresa un valor entre 1 y 31'); i--; continue }
+        if(x<0 || (x>12 && i==1)) { alert('Ingresa un valor entre 1 y 13'); i--; continue }
+        fecha.push(x)
+    }
+    document.writeln('<p>La fecha es: ' + fecha[3] + '/' + fecha[4] + '/' + fecha[5] + '.</p>');
+    document.writeln('<p>Te encuentras en el ' + periodo[(fecha[4]-1)%3] + ' mes del ' + periodo[Math.floor((fecha[4]-1)/3)] + ' trimestre.</p>')
+}
+
+function cod08(){ //SWITCH
+    const valor = parseInt(prompt('Ingrese un valor comprendido entre 1 y 5:'));
+    switch (valor) {
+        case 1:
+            document.writeln('uno');
+            break;
+        case 2:
+            document.writeln('dos');
+            break;
+        case 3:
+            document.writeln('tres');
+            break;
+        case 4:
+            document.writeln('cuatro');
+            break;
+        case 5:
+            document.writeln('cinco');
+            break;
+        default:
+            document.writeln('debe ingresar un valor comprendido entre 1 y 5.');
+    }
+}
+
+function cod09(){ //While
+    let x = 1;
+    while (x <= 100)
+        document.writeln('<p>' + x++ + '</p>');
+}
+
+function cod10(i = 0, suma = 0){
+    if(!(i<5)) { return document.writeln('<p>La suma de los valores es ' + suma + '</p>')}
+    const valor = parseInt(prompt('Ingresa el valor ' + (i+1) + ':'));
+    if(isNaN(valor)){ alert('El valor ingresado debe de ser un número. Por favor, vuelve a intentarlo.'); cod10(i,suma)}
+    else{cod10(i+1,suma+valor)}
 }
