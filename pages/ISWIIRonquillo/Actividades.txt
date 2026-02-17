@@ -1,0 +1,509 @@
+//1 ENTRADA DE DATOS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let nombre; 
+        let edad;
+        let sexo;
+        nombre = prompt('INGRESA TU NOMBRE:');
+        edad = prompt('Ingrese su edad:');
+        sexo = prompt('Ingresa que sexo eres:');
+        document.write('Hola ');
+        document.write(nombre);
+        document.write(' asi que tienes ');
+        document.write(edad);
+        document.write(' años');
+        document.write(' y tu sexo es');
+        document.write( años);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//2 ESTRUCTURAS SECUENCIALES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor1;
+        let valor2;
+        valor1 = prompt('Ingrese primer número:');
+        valor2 = prompt('Ingrese segundo número');
+        let suma = parseInt(valor1) + parseInt(valor2);
+        let producto = parseInt(valor1) * parseInt(valor2);
+        document.write('La suma es ');
+        document.write(suma);
+        document.write('<br>');
+        document.write('El producto es ');
+        document.write(producto);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//3 ESTRUCTURAS CONDICIONALES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let nombre;
+        let nota;
+        nombre = prompt('Ingrese nombre:');
+        nota = parseInt(prompt('Ingrese su nota:'));
+        if (nota >= 4) {
+            document.write(nombre + ' esta aprobado con un ' + nota);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//4 ESTRUCTURAS CONDICIONALES COMPUESTAS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let num1, num2;
+        num1 = parseInt(prompt('Ingrese el primer número:'));
+        num2 = parseInt(prompt('Ingrese el segundo número:'));
+        if (num1 > num2) {
+            document.write('el mayor es ' + num1);
+        } else {
+            document.write('el mayor es ' + num2);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//5 ESTRUCTURAS CONDICIONALES ANIDADAS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let cal1, cal2, cal3;
+        cal1 = prompt('Ingrese 1ra. Calificacion: ');
+        cal2 = prompt('Ingrese 2da. Calificacion: ');
+        cal3 = prompt('Ingrese 3ra. Calificacion: ');
+        //Convertimos los 3 string en enteros
+        cal1 = parseInt(cal1);
+        cal2 = parseInt(cal2);
+        cal3 = parseInt(cal3);
+       
+o;
+        pro = (cal1 + cal2 + cal3) / 3;
+        if (pro >= 7) {
+            document.write('pasaste  n_n');
+        } else {
+            if (pro == 6) {
+                document.write('hechale ganas bro');
+            } else {
+                document.write('reprobado hechale mas ganas');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//6 OPERADORES LOGICOS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let num1, num2, num3;
+        num1 = prompt('Ingrese primer número:');
+        num2 = prompt('Ingrese segundo número:');
+        num3 = prompt('Ingrese tercer número:');
+        num1 = parseInt(num1);
+        num2 = parseInt(num2);
+        num3 = parseInt(num3);
+        if (num1 > num2 && num1 > num3) {
+            document.write('el mayor es el ' + num1);
+        } else {
+            if (num2 > num3) {
+                document.write('el mayor es el ' + num2);
+            } else {
+            if (num3 > num4)
+                document.write('el mayor es el ' + num3);
+else 
+document.write('el mayor es el ' + num3);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+7 OPERADORES LOGICOS CON CONDICIONAL
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let dia, mes, año;
+        dia = parseInt(prompt('Ingrese día:'));
+        mes = parseInt(prompt('Ingrese mes:'));
+        año = parseInt(prompt('Ingrese año:'));
+        if (mes == 1 || mes == 2 || mes == 3) {
+            document.write('corresponde al primer trimestre del año.');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//8 SWITCH
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor;
+        valor = parseInt(prompt('Ingrese un valor comprendido entre 1 y 5:'));
+        switch (valor) {
+            case 1:
+                document.write('uno');
+                break;
+            case 2:
+                document.write('dos');
+                break;
+            case 3:
+                document.write('tres');
+                break;
+            case 4:
+                document.write('cuatro');
+                break;
+            case 5:
+                document.write('cinco');
+                break;
+            default:
+                document.write('debe ingresar un valor comprendido entre 1 y 5.');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//9 WHILE
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let x;
+        x = 1;
+        while (x <= 100) {
+            document.write(x);
+            document.write('<br>');
+            x = x + 1;
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//10 PROBLEMA SOLUCION EJERCICIO
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let x = 1;
+        let suma = 0;
+        let valor;
+        while (x <= 5) {
+            valor = parseInt(prompt('Ingrese valor:'));
+            suma = suma + valor;
+            x = x + 1;
+        }
+        document.write('La suma de los valores es ' + suma + '<br>');
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//11 DO WHILE
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor;
+        do {
+            valor = parseInt(prompt('Ingrese un valor entre 0 y 999:', ''));
+            document.write('El valor ' + valor + ' tiene ');
+            if (valor < 10) {
+                document.write('Tiene 1 digitos');
+            } else {
+                if (valor < 100) {
+                    document.write('Tiene 2 digitos');
+                } else {
+                    document.write('Tiene 3 digitos');
+                }
+            }
+            document.write('<br>');
+        } while (valor != 0);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//12 FOR
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        for (let f = 1; f <= 10; f++) {
+            document.write(f + " ");
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//13A SIN FUNCIONES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//13B CON FUNCIONES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function mostrarMensaje() {
+            document.write("Cuidado<br>");
+            document.write("Ingrese su documento correctamente<br>");
+        }
+
+        mostrarMensaje();
+        mostrarMensaje();
+        mostrarMensaje();
+    </script>
+
+</body>
+
+</html>
