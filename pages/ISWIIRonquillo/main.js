@@ -118,9 +118,47 @@ function cod09(){ //While
         document.writeln('<p>' + x++ + '</p>');
 }
 
-function cod10(i = 0, suma = 0){
+function cod10(i = 0, suma = 0){ //Problema solucion ejercicio
     if(!(i<5)) { return document.writeln('<p>La suma de los valores es ' + suma + '</p>')}
     const valor = parseInt(prompt('Ingresa el valor ' + (i+1) + ':'));
     if(isNaN(valor)){ alert('El valor ingresado debe de ser un número. Por favor, vuelve a intentarlo.'); cod10(i,suma)}
     else{cod10(i+1,suma+valor)}
+}
+
+function cod11(){ //Do while
+    let valor = 0;
+    do {
+        valor = parseInt(prompt('Ingrese un número entre 0 y 999:', ''));
+        if(valor < 0 || valor > 999 || isNaN(valor)) { alert('El dato esta mal en algo.'); continue }
+        const msj = 'El valor ' + valor + ' tiene ';
+        if (valor < 10) { alert(msj + '1 digito.'); continue }
+        if (valor < 100) { alert(msj + '2 digitos'); continue }
+        if (valor < 1000) { alert(msj + '3 digitos'); continue }
+    } while (valor != 0);
+    document.writeln('<p>Haz conseguido salir del ciclo</p>')
+}
+
+function cod12(){ //For
+    for (let f = 0; f < 10; f++)
+        for(let c = 0; c < 10; c++)
+            document.writeln(c===0 ? '<p>[' + f + ' , ' + c + ']' : c===9 ? '[' + f + ' , ' + c + ']</p>' : '[' + f + ' , ' + c + ']' ); 
+}
+
+function cod13A(){
+    document.writeln("<p>Cuidado</p>");
+    document.writeln("<p>Ingrese su documento correctamente</p>");
+    document.writeln("<p>Cuidado</p>");
+    document.writeln("<p>Ingrese su documento correctamente</p>");
+    document.writeln("<p>Cuidado</p>");
+    document.writeln("<p>Ingrese su documento correctamente</p>");
+}
+
+function cod13B(){
+    const mostrarMensaje = () => {
+        document.write("<p>Cuidado</p>");
+        document.write("<p>Ingrese su documento correctamente</p>");
+    }
+    mostrarMensaje();
+    mostrarMensaje();
+    mostrarMensaje();
 }
