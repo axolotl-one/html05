@@ -170,3 +170,130 @@ function cod13B(){
     mostrarMensaje();
     mostrarMensaje();
 }
+
+function cod14(inicio, fin) {
+    for (let f = inicio; f <= fin; f++) {
+        document.getElementById("respuesta").innerHTML += f + ' ';
+    }
+}
+
+function cod15(x) {
+    document.getElementById("respuesta").innerHTML = convertirCastellano(x);
+}
+
+function convertirCastellano(x) {
+    if (x == 1)
+        return "uno";
+    if (x == 2)
+        return "dos";
+    if (x == 3)
+        return "tres";
+    if (x == 4)
+        return "cuatro";
+    if (x == 5)
+        return "cinco";
+    return "valor fuera del rango";
+}
+
+function cod16() {
+    const fecha = new Date();
+    document.getElementById("respuesta").innerHTML = 
+        "<p>Hoy es: " + fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear() + "<p>" +
+        "<p>La hora es: " + fecha.getHours() + ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
+}
+
+function cod17() {
+    const sueldos = new Array(5);
+    for (let f = 0; f < sueldos.length; f++) {
+        let v = prompt('Ingrese sueldo:');
+        sueldos[f] = parseInt(v);
+    }
+    calcularGastos(sueldos)
+}
+
+function calcularGastos(sueldos) {
+    let total = 0;
+    for (let f = 0; f < sueldos.length; f++) {
+        total = total + sueldos[f];
+    }
+    document.getElementById("respuesta").innerHTML = ("<p>Listado de sueldos</p>");
+    for (let f = 0; f < sueldos.length; f++) {
+        document.getElementById("respuesta").innerHTML += "<p>" + sueldos[f] + "</p>";
+    }
+    document.getElementById("respuesta").innerHTML += 'Total de gastos en sueldos:' + total;
+}
+
+function cod18() {
+    const selec = parseInt(prompt('Ingrese un valor entre 1 y 10'));
+    const num = parseInt(Math.random() * 10) + 1;
+    if (num == selec)
+        document.getElementById("respuesta").innerHTML = 'Ganó el número que se sorteó es el ' + num;
+    else
+        document.getElementById("respuesta").innerHTML = 'Lo siento se sorteó el valor ' + num + ' y usted eligió el ' + selec;
+}
+
+function cod19() {
+    const cadena = document.getElementById("string19").value;
+    document.getElementById("respuesta").innerHTML =
+        "<p>La cadena ingresada es: " + cadena + "</p>" +
+        "<p>La cantidad de caracteres son: " + cadena.length + "</p>" +
+        "<p>El primer carácter es: " + cadena.charAt(0) + "</p>" +
+        "<p>Los primeros 3 caracteres son: " + cadena.substring(0, 3) + "</p>" +
+        "<p>" + (cadena.indexOf('hola') !== -1 ? "Se ingresó la subcadena \"hola\"" : "No se ingresó la subcadena \"hola\"") + "</p>" +
+        "<p>La cadena convertida a mayúsculas es: " + cadena.toUpperCase() + 
+        "<p>La cadena convertida a minúsculas es: " + cadena.toLowerCase();
+}
+
+let cont20 = 0;
+
+function cod20() {
+    document.getElementById("respuesta").innerHTML = "El contador ahora vale: " + ++cont20;
+}
+
+function cod21() {
+    const nom = document.getElementById('nombre').value;
+    const ed = document.getElementById('edad').value;
+    alert('Ingresó el nombre:' + nom);
+    alert('Y la edad:' + ed);
+}
+
+function cod22() {
+    let clave = document.getElementById('clave').value;
+    if (clave.length < 5) {
+        alert('La clave no puede tener menos de 5 caracteres!!!');
+    } else {
+        alert('Largo de clave correcta');
+    }
+}
+
+function cod23() {
+    const seleccion = document.getElementById('select23');
+    document.getElementById('text1').value = seleccion.selectedIndex;
+    document.getElementById('text2').value = seleccion.options[seleccion.selectedIndex].text;
+    document.getElementById('text3').value = seleccion.options[seleccion.selectedIndex].value;
+}
+
+function cod24() {
+    let cant = 0;
+    const checkboxes = document.querySelectorAll(".cod24");
+    checkboxes.forEach((checkbox) => { if (checkbox.checked) cant++ })
+    alert('Conoce ' + cant + ' lenguajes');
+}
+
+function cod25() {
+    const radios = document.querySelectorAll(".cod25");
+    alert('Seleccionaste: ' + Array.from(radios).find(radio => radio.checked).id);
+}
+
+function cod26() {
+    if (document.getElementById('curriculum').value.length > 50) {
+        alert('curriculum muy largo');
+    } else {
+        alert('datos correctos');
+    }
+}
+
+function showSection(id) {
+    document.querySelectorAll(".sect-code").forEach((sect) => sect.style.display = "none");
+    document.getElementById(id).style.display = "block";
+}

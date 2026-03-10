@@ -1,18 +1,22 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 }
 
-nav{
+nav {
     display: grid;
     min-height: 100dvh;
     grid-template-rows: auto 1fr auto;
 }
 
-nav *{
+nav * {
     margin: 5px;
 }
 
-h1, h5{
+h1, h5 {
     text-align: center;
+}
+
+.sect-code {
+    display: none;
 }

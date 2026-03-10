@@ -8,33 +8,101 @@
     <script src="./main.js"></script>
 </head>
 <body>
-    <nav>
-        <header>
-            <h1>Prácticas de Ingeniería de Software II</h1>
-        </header>
-        <main>
-            <section id="lista-codigos">
-                <button id="btn-cod01" onclick="cod01()">Código 1</button>
-                <button id="btn-cod02" onclick="cod02()">Código 2</button>
-                <button id="btn-cod03" onclick="cod03()">Código 3</button>
-                <button id="btn-cod04" onclick="cod04()">Código 4</button>
-                <button id="btn-cod05" onclick="cod05()">Código 5</button>
-                <button id="btn-cod06" onclick="cod06()">Código 6</button>
-                <button id="btn-cod07" onclick="cod07()">Código 7</button>
-                <button id="btn-cod08" onclick="cod08()">Código 8</button>
-                <button id="btn-cod09" onclick="cod09()">Código 9</button>
-                <button id="btn-cod10" onclick="cod10()">Código 10</button>
-                <button id="btn-cod11" onclick="cod11()">Código 11</button>
-                <button id="btn-cod12" onclick="cod12()">Código 12</button>
-                <button id="btn-cod13" onclick="cod13A()">Código 13A</button>
-                <button id="btn-cod13" onclick="cod13B()">Código 13B</button>
-            </section>
-            <section id="respuesta">
-            </section>
-        </main>
-        <footer>
-            <h5>&copy; Axel López (@axolotl-one) - V3.1.4 Debug del Método <code>document.write()</code></h5>
-        </footer>
-    </nav>
+<nav>
+<header>
+    <h1>Prácticas de Ingeniería de Software II</h1>
+</header>
+<main>
+    <section id="lista-codigos">
+        <button id="btn-cod01" onclick="cod01()">Código 1</button>
+        <button id="btn-cod02" onclick="cod02()">Código 2</button>
+        <button id="btn-cod03" onclick="cod03()">Código 3</button>
+        <button id="btn-cod04" onclick="cod04()">Código 4</button>
+        <button id="btn-cod05" onclick="cod05()">Código 5</button>
+        <button id="btn-cod06" onclick="cod06()">Código 6</button>
+        <button id="btn-cod07" onclick="cod07()">Código 7</button>
+        <button id="btn-cod08" onclick="cod08()">Código 8</button>
+        <button id="btn-cod09" onclick="cod09()">Código 9</button>
+        <button id="btn-cod10" onclick="cod10()">Código 10</button>
+        <button id="btn-cod11" onclick="cod11()">Código 11</button>
+        <button id="btn-cod12" onclick="cod12()">Código 12</button>
+        <button id="btn-cod13a" onclick="cod13A()">Código 13A</button>
+        <button id="btn-cod13b" onclick="cod13B()">Código 13B</button>
+        <button id="btn-cod14" onclick="cod14(parseInt(prompt('Ingrese el valor inferior')), parseInt(prompt('Ingrese el valor superior')))">Código 14</button>
+        <button id="btn-cod15" onclick="cod15(parseInt(prompt('Ingrese un valor entre 1 y 5')))">Código 15</button>
+        <button id="btn-cod16" onclick="cod16()">Código 16</button>
+        <button id="btn-cod17" onclick="cod17()">Código 17</button>
+        <button id="btn-cod18" onclick="cod18()">Código 18</button>
+        <button id="btn-cod19" onclick="showSection('sect19')">Código 19</button>
+        <button id="btn-cod20" onclick="cod20()">Código 20</button>
+        <button id="btn-cod21" onclick="showSection('sect21')">Código 21</button>
+        <button id="btn-cod22" onclick="showSection('sect22')">Código 22</button>
+        <button id="btn-cod23" onclick="showSection('sect23')">Código 23</button>
+        <button id="btn-cod24" onclick="showSection('sect24')">Código 24</button>
+        <button id="btn-cod25" onclick="showSection('sect25')">Código 25</button>
+        <button id="btn-cod26" onclick="showSection('sect26')">Código 26</button>
+    </section>
+    <section class="sect-code" id="sect19">
+        <p>Código 19: Control de Strings</p>
+        <p>Ingrese una Cadena de Texto: <input type="text" id="string19"></p>
+        <input type="button" onclick="cod19()" value="Mostrar Controles">
+    </section>
+    <section class="sect-code" id="sect21">
+        <p>Código 21: Lectura de Inputs</p>
+        <p>Ingrese su nombre: <input type="text" id="nombre"></p>
+        <p>Ingrese su edad: <input type="text" id="edad"></p>
+        <input type="button" onclick="cod21()" value="Capturar">
+    </section>
+    <section class="sect-code" id="sect22">
+        <p>Código 22: Control de Passwords</p>
+        <p>Ingrese una clave: <input type="password" id="clave"></p>
+        <input type="button" onclick="cod22()" value="Validar Password">
+    </section>
+    <section class="sect-code" id="sect23">
+        <p>Código 23: Control de Select</p>
+        <p><select id="select23" onchange="cod23()">
+                <option value="">-- Código 23 --</option>
+                <option value="ff0000">Rojo</option>
+                <option value="00ff00">Verde</option>
+                <option value="0000ff">Azul</option>
+            </select></p>
+        <p>Número de índice seleccionado del objeto SELECT: <input type="text" id="text1"></p>
+        <p>Texto seleccionado: <input type="text" id="text2"></p>
+        <p>Valor asociado: <input type="text" id="text3"></p>
+    </section>
+    <section class="sect-code" id="sect24">
+        <p>Código 24: Control de Checkboxes</p>
+        <p>Selecciona Lenguajes de Programación</p>
+        <p><input class="cod24" type="checkbox" id="checkbox1">JavaScript</p>
+        <p><input class="cod24" type="checkbox" id="checkbox2">Python</p>
+        <p><input class="cod24" type="checkbox" id="checkbox3">C#</p>
+        <p><input class="cod24" type="checkbox" id="checkbox4">Java</p>
+        <p><input class="cod24" type="checkbox" id="checkbox5">Prolog</p>
+        <p><input type="button" onclick="cod24()" value="Mostrar Lenguajes"></p>
+    </section>
+    <section class="sect-code" id="sect25">
+        <p>Código 25: Control de Radios</p>
+        <p>Selecciona Nivel de Estudios:</p>
+        <p><input class="cod25" type="radio" id="Sin-Estudios" name="estudios">Sin estudios</p>
+        <p><input class="cod25" type="radio" id="Primarios" name="estudios">Primarios</p>
+        <p><input class="cod25" type="radio" id="Secundarios" name="estudios">Secundarios</p>
+        <p><input class="cod25" type="radio" id="Bachillerato" name="estudios">Bachillerato</p>
+        <p><input class="cod25" type="radio" id="Universitarios" name="estudios">Universitarios</p>
+        <p><input type="button" onclick="cod25()" value="Mostrar Selección"></p>
+    </section>
+    <section class="sect-code" id="sect26">
+        <p>Código 26: Control de Text Areas</p>
+        <p><input type="text" maxlength="10" placeholder="Ingresa Nombre" title="El límite de letras es de 10"></p>
+        <p><textarea id="curriculum" rows="10" cols="30"></textarea></p>
+        <p><input type="button" onclick="cod26()" value="Mostrar"></p>
+    </section>
+    <section id="respuesta">
+    </section>
+</main>
+<footer>
+    <h5>&copy; Axel López (@axolotl-one) - V3.1.5 [Códigos 14-26] Control de Objetos JS y Componentes HTML</h5>
+</footer>
+</nav>
 </body>
+
 </html>
