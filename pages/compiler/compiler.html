@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./compiler.css">
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./main.js" defer></script>
     <title>Compilador online</title>
 </head>
 <body>
 <nav>
 <header>
-    <h1>Compilador Básico</h1>
+    <h1>Compilador Básico <button onclick="compilar()">Ejecutar</button></h1>
 </header>
 <main>
-    <textarea id="codigo-fuente" cols="100" rows="20" disabled></textarea>
+    <textarea id="codigo-fuente" autocorrect="off" spellcheck="false"></textarea>
+    <textarea id="consola" readonly></textarea>
 </main>
 <footer>
     <details>
-        <summary>V3.2.0 Compilador Básico - Implementación de Tokens con JSON</summary>
-        <p>Se realizó la prueba de lectura JSON para generar el arreglo de objetos Token</p>
-        <p>Elaboró: Equipo 10</p>
+        <summary>V3.2.1 Compilador Básico - Generación de Tokens con Regex</summary>
+        <p>Cambios en la valiidación de Tokens de JSON a Regex.</p>
+        <p>Elaboró: Equipo 10 (ICO-OC)</p>
     </details>
 </footer>
 </nav>

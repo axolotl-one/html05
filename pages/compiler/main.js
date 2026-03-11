@@ -1,24 +1,77 @@
 const editor = document.getElementById("codigo-fuente");
-const tokens = await cargarTokens();
+const consola = document.getElementById("consola");
+editor.value = "public void main() {\n   Console.WriteLine(\"Hola Mundo...!\");\n   Console.ReadKey(true);\n}"
 
-async function cargarDatos(ruta) {
-  const respuesta = await fetch(ruta);
-  const data = await respuesta.json();
-  return data;
+window.compilar = function() {
+  if(!editor.value) return;
+  consola.value = "Generando Lista de Tokens:\n"
+  for(let token of generarTokens(editor.value))
+    consola.value +=  token.tipo + ": " + token.valor + "\n";
 }
 
-async function cargarTokens() {
-  const tokensJSON = await cargarDatos("./tokens.json");
-  const tokens = [];
+const tiposToken = {
+  Id: "Identificador",
+  Numero: "Numero",
+  Reservado: "Palabra Reservada",
+  Delimitador: "Delimitador",
+  String: "Cadena de Caracteres",
+  Operador: "Operador",
+  Ignorable: "Espacios/Saltos/Comentarios",
+};
 
-  console.log(tokensJSON);
-  await tokensJSON.forEach((tipo) => {
-    tipo.tokens.forEach((valor) => tokens.push({ "tipo" : tipo.tipo, "valor" : valor.valor}))
-  })
-  editor.disabled = false;
-  editor.innerHTML = "Lista de tokens:\n";
-  tokens.forEach(token => {
-    editor.innerHTML += "(Tipo: \"" + token.tipo + "\", valor: \"" + token.valor + "\")\n";
-  })
-  return tokens
+function generarTokens(input) {
+  let pin = 0;
+  let tokens = [];
+
+  // Definir las reglas de los tokens
+  const reglas = [
+    { tipo: tiposToken.Delimitador, regex: /^\(/ },
+    { tipo: tiposToken.Delimitador, regex: /^\)/ },
+    { tipo: tiposToken.Delimitador, regex: /^\{/ },
+    { tipo: tiposToken.Delimitador, regex: /^\}/ },
+    { tipo: tiposToken.Delimitador, regex: /^\;/ },
+    { tipo: tiposToken.Delimitador, regex: /^\./ },
+    { tipo: tiposToken.Delimitador, regex: /^\,/ },
+    { tipo: tiposToken.Numero, regex: /^[0-9]+/ },
+    { tipo: tiposToken.Ignorable, regex: /^(\/\*)([^\/\*]*)(\*\/)/}, //Comentario en bloque
+    { tipo: tiposToken.Ignorable, regex: /^(\/\/)([^\/\*]*)\n/}, //Comentario en linea
+    { tipo: tiposToken.Operador, regex: /^(==|>=|<=|!=|\|\||&&|\+\+|--|\+=|-=|\*=|\/=)/ },
+    { tipo: tiposToken.Operador, regex: /^[+\-*/=%!><]/ },
+    { tipo: tiposToken.String, regex: /^"([^"]*)"|^'([^']*)'/ },
+    { tipo: tiposToken.Reservado, regex: /^(int|string|void|public|private|true|false)/ },
+    { tipo: tiposToken.Id, regex: /^[a-zA-Z_$][a-zA-Z0-9_$]*/ },
+    { tipo: tiposToken.Ignorable, regex: /^\s+/ }, // Espacios en blanco
+    { tipo: tiposToken.Ignorable, regex: /^\n+/ }, // Saltos de Linea
+    // ^(inicia con)([^cualquiera que no sea]*)(termina con)
+  ];
+
+  while (pin < input.length) {
+    let char = input[pin];
+    let matched = false;
+
+    for (let regla of reglas) {
+      let match = regla.regex.exec(input.slice(pin));
+      
+      if (match) {
+        let value = match[0];
+        // No añadir espacios en blanco a la lista final de tokens
+        if (regla.tipo !== tiposToken.Ignorable) {
+          tokens.push({ tipo: regla.tipo, valor: value });
+        }
+        pin += value.length;
+        matched = true;
+        break;
+      }
+    }
+
+    if (!matched) {
+      tokens.push({tipo: "Error: Caracter Desconocido", valor: char + "\nEjecución Abortada."});
+      return tokens;
+      //pin++; continue;
+    }
+  }
+
+  return tokens;
 }
+
+//compilar();
