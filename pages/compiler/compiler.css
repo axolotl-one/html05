@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+nav {
+    display: grid;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    grid-template-rows: auto 1fr auto;
+}
+
+main {
+    max-height: max-content;
+}
+
+#codigo-fuente {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    max-height: max-content;
+    resize: horizontal;
+}
