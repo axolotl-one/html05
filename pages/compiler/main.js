@@ -1,14 +1,19 @@
 const editor = document.getElementById("codigo-fuente");
 const consola = document.getElementById("consola");
-editor.value = "public void main() {\n   Console.WriteLine(\"Hola Mundo...!\");\n   Console.ReadKey(true);\n}"
+//editor.value = "public void main() {\n   Console.WriteLine(\"Hola Mundo...!\");\n   Console.ReadKey(true);\n}"
+editor.value = "string c = \"hola\";\nstring v = c;"
 
 window.compilar = function() {
   if(!editor.value) return;
   consola.value = "Generando Lista de Tokens:\n"
   const tokens = generarTokens(editor.value);
   if(!tokens) return;
-  consola.value += "Generando AST";
-  console.log(armarAST(new NodoToken("main"), tokens, 0, ));  
+  consola.value += "Generando AST\n";
+  //console.log(armarASTX(new NodoToken({tipo: "raiz", valor: "origen"}), tokens, 0 ));
+  const AST = armarAST(new NodoToken("origen"), [...tokens])
+  console.log(AST);
+  console.log(JSON.stringify(AST, null, 2))
+  consola.value += JSON.stringify(AST, null, 2)
 }
 
 const tiposToken = {
@@ -72,23 +77,104 @@ function generarTokens(input) {
   return tokens;
 }
 
-class NodoToken{
-  constructor(raiz) { this.raiz = raiz; this.nodo1 = null; this.nodo2 = null }
-
-
+class NodoToken {
+  constructor(raiz) { this.raiz = raiz; this.izquierda = null; this.derecha = null }
 }
 
-function armarAST(nodo, tokens, pin) {
-  
-  if(pin >= tokens.length) return;
+class ErrorSintactico {
+  constructor(error) { this.error = error }
+}
 
-  if(tokens[pin].tipo === tiposToken.Id && tokens[pin + 1] !== tiposToken.Operador) return nodo;
-  if(tokens[pin].tipo === tiposToken.Delimitador && tokens[pin + 1].valor === ";") return nodo;
+function armarAST(nodo, tokens) {
+  if(nodo.raiz === ";") return nodo;
+  if(tokens.length < 1) return;
+  console.log("nodo: ", nodo.raiz)
+  console.log("token1: ", tokens[0].valor)
+  if(tokens[1]) console.log("token2: ", tokens[1].valor)
+  console.log("tokens: ", tokens)
+  console.log("length: ", tokens.length)
+  if(nodo.raiz === "origen"){
+    nodo.izquierda = armarAST(new NodoToken(tokens.shift().valor), tokens)
+    nodo.derecha = armarAST(new NodoToken("NB"), tokens)
+    return nodo;
+  }
 
-  if(tokens[pin].tipo === tiposToken.Reservado && tokens[pin+1].tipo === tiposToken.Id)
-    nodo.nodo1 = armarAST(new NodoToken(tokens[pin+1]), tokens, pin+1)
+  if(nodo.raiz === "NB"){
+    nodo.izquierda = armarAST(new NodoToken(tokens.shift().valor), tokens)
+    if(!nodo.raiz)
+      nodo.derecha = armarAST(new NodoToken("NB"), tokens)
+  }
 
+  if(nodo.raiz === "string"){
+    tokens[0].tipo === tiposToken.Id
+      ? nodo.izquierda = armarAST(new NodoToken(tokens.shift().valor), tokens)
+      : nodo = new ErrorSintactico("Declarador string no recibe un ID");
+    tokens[0].valor === "="
+      ? nodo.derecha = armarAST(new NodoToken(tokens.shift().valor), tokens)
+      : nodo = new ErrorSintactico("Declarador string no utiliza el operado de asignación: \"=\".")
+    return nodo;
+  }
+  if(nodo.raiz === "="){
+    tokens[0].valor !== ";"
+      ? nodo.izquierda = armarAST(new NodoToken(tokens.shift().valor), tokens)
+      : nodo = new ErrorSintactico("La asignación esta vacía");
+    tokens[0].tipo === tiposToken.Operador || tokens[0].valor === ";"
+      ? nodo.derecha = armarAST(new NodoToken(tokens.shift().valor), tokens)
+      : nodo = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
+    return nodo;
+  }
+  if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
+  if(nodo.derecha instanceof ErrorSintactico) return nodo.derecha;
   return nodo;
 }
+
+function armarASTX(nodo, tokens, i) {
+  if(nodo.raiz === ";") return nodo;
+  if(i >= tokens.length) return;
+  if(nodo.raiz === "origen"){
+    nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
+    nodo.derecha = armarAST(new NodoToken("nuevo bloque"), tokens, i)
+    return nodo;
+  }
+
+  if(nodo.raiz === "nuevo bloque"){
+    i = contarNodos(i)
+    nodo.izquierda = ""
+  }
+
+  if(nodo.raiz === "string"){
+    tokens[++i].tipo === tiposToken.Id
+      ? nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
+      : nodo = new ErrorSintactico("Declarador string no recibe un ID");
+    tokens[++i].valor === "="
+      ? nodo.derecha = armarAST(new NodoToken(tokens[i].valor), tokens, i)
+      : nodo = new ErrorSintactico("Declarador string no utiliza el operado de asignación: \"=\".")
+    return nodo;
+  }
+  if(nodo.raiz === "="){
+    tokens[++i].valor !== ";"
+      ? nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
+      : nodo = new ErrorSintactico("La asignación esta vacía");
+    tokens[++i].tipo === tiposToken.Operador || tokens[i].valor === ";"
+      ? nodo.derecha = armarAST(new NodoToken(tokens[i].valor), tokens, i)
+      : nodo = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
+    return nodo;
+  }
+  if(tokens[i].tipo === tiposToken.Id){
+    return nodo
+  }
+  if(tokens[i].tipo === tiposToken.String){
+    return nodo
+  }
+  if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
+  if(nodo.derecha instanceof ErrorSintactico) return nodo.derecha;
+  return nodo;
+}
+
+function contarNodos(arbol) {
+  if(arbol.raiz === null) return 0;
+  return 1 + contarNodos(arbol.izquierda) + contarNodos(arbol.derecha);
+}
+
 
 //compilar();
