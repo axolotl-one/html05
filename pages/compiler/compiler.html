@@ -10,16 +10,23 @@
 <body>
 <nav>
 <header>
-    <h1>Compilador Básico <button onclick="compilar()">Ejecutar</button></h1>
+    <h1>Compilador Básico
+        <button onclick="verSection('section','compiler')">Editor</button>
+        <button onclick="verSection('section','ast')">Árbol AST</button>
+        <button onclick="compilar()">Ejecutar</button></h1>
 </header>
 <main>
-    <textarea id="codigo-fuente" autocorrect="off" spellcheck="false"></textarea>
-    <textarea id="consola" readonly></textarea>
+    <section id="compiler">
+        <textarea id="codigo-fuente" autocorrect="off" spellcheck="false"></textarea>
+        <textarea id="consola" readonly></textarea>
+    </section>
+    <section id="ast" style="display: none;">
+    </section>
 </main>
 <footer>
     <details>
-        <summary>V3.2.3 Compilador Básico - Generación del Árbol AST con JSON</summary>
-        <p>Se aplicó una función recursiva en la generación del árbol AST</p>
+        <summary>V3.2.4 Compilador Básico - Refactor Generación del Árbol AST con JSON</summary>
+        <p>La función armarAST ahora se ejecuta sin parametros ya que se genera una copia global de los tokens</p>
         <p>Elaboró: Equipo 10 (ICO-OC)</p>
     </details>
 </footer>

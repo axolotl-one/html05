@@ -10,17 +10,19 @@ nav {
     grid-template-rows: auto 1fr auto;
 }
 
+section, textarea{
+    height: 100%;
+}
+
 #codigo-fuente {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    height: 100%;
     width: 50%;
     max-width: 75%;
     resize: horizontal;
 }
 
 #consola {
-    height: 100%;
     width: 45%;
     resize: none;
 }
