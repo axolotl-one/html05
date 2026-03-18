@@ -25,6 +25,7 @@ window.compilar = function() {
   console.log(JSON.stringify(AST, null, 2));
   consola.value += JSON.stringify(AST, null, 2);
   mapaAst.innerHTML = "<p>Armando Árbol AST</p>";
+  mapaAst.append(crearDivNodo(AST));
 }
 
 const CLASETOKEN = {
@@ -197,6 +198,25 @@ function armarASTX(nodo, tokens, i) {
 function contarNodos(arbol) {
   if(arbol.raiz === null) return 0;
   return 1 + contarNodos(arbol.izquierda) + contarNodos(arbol.derecha);
+}
+
+function crearInputNodo(nodo) {
+  if(nodo.raiz === null) return;
+  const input = document.createElement("input");
+  input.value = nodo.raiz;
+  input.readOnly = true;
+  input.type = "text";
+  return
+}
+
+function crearDivNodo(nodo) {
+  const div = document.createElement("div");
+  div.classList.add("nodo-ast");
+  div.textContent += nodo.raiz;
+  console.log(nodo.raiz);
+  if(nodo.izquierda === null && nodo.derecha === null) return div;
+  if(nodo.izquierda !== null) div.append(crearDivNodo(nodo.izquierda));
+  if(nodo.derecha !== null) div.append(crearDivNodo(nodo.derecha));
 }
 
 
