@@ -24,7 +24,7 @@ window.compilar = function() {
   console.log(AST);
   console.log(JSON.stringify(AST, null, 2));
   consola.value += JSON.stringify(AST, null, 2);
-  mapaAst.innerHTML = "<p>Armando Árbol AST</p>";
+  mapaAst.innerHTML += "<p>Armando Árbol AST</p>";
   mapaAst.append(crearDivNodo(AST));
 }
 
@@ -200,23 +200,26 @@ function contarNodos(arbol) {
   return 1 + contarNodos(arbol.izquierda) + contarNodos(arbol.derecha);
 }
 
-function crearInputNodo(nodo) {
-  if(nodo.raiz === null) return;
-  const input = document.createElement("input");
-  input.value = nodo.raiz;
-  input.readOnly = true;
-  input.type = "text";
-  return
-}
-
 function crearDivNodo(nodo) {
   const div = document.createElement("div");
   div.classList.add("nodo-ast");
-  div.textContent += nodo.raiz;
-  console.log(nodo.raiz);
+  const raiz = document.createElement("div");
+  raiz.classList.add("nodo-raiz");
+  raiz.textContent = nodo.raiz;
+  div.append(raiz)
+  console.log(div);
   if(nodo.izquierda === null && nodo.derecha === null) return div;
-  if(nodo.izquierda !== null) div.append(crearDivNodo(nodo.izquierda));
-  if(nodo.derecha !== null) div.append(crearDivNodo(nodo.derecha));
+  if(nodo.izquierda !== null) {
+    const izq = crearDivNodo(nodo.izquierda);
+    izq.classList.add("nodo-izq")
+    div.append(izq);
+  }
+  if(nodo.derecha !== null){
+    const der = crearDivNodo(nodo.derecha);
+    der.classList.add("nodo-der")
+    div.append(der);
+  }
+  return div;
 }
 
 

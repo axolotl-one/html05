@@ -26,3 +26,28 @@ section, textarea{
     width: 45%;
     resize: none;
 }
+
+.nodo-ast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+.nodo-raiz {
+    grid-column: 1 / span 2;
+    border: 2px solid darkgreen;
+    padding: 5px;
+}
+
+.nodo-izq{
+    border: 2px solid darkorange;
+    padding: 5px;
+    text-align: center;
+}
+
+.nodo-der {
+    border: 2px solid darkblue;
+    padding: 5px;
+    text-align: center;
+}
+
