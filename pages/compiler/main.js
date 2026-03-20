@@ -147,6 +147,12 @@ function armarAST() {
       : nodo = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
     return nodo;
   }
+
+  if(token.valor = "if"){
+    if(Gtokens[0].valor !== "(") return new ErrorSintactico("El condicional if debe contener una condición entre paréntesis")
+    if(Gtokens[1].valor === ")") return new ErrorSintactico("El condicional if debe contener una condición")
+  }
+
   if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
   if(nodo.derecha instanceof ErrorSintactico) return nodo.derecha;
   return nodo;
