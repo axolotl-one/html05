@@ -30,6 +30,7 @@ section, textarea{
 .nodo-ast {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    text-align: center;
     gap: 5px;
 }
 
@@ -42,12 +43,10 @@ section, textarea{
 .nodo-izq{
     border: 2px solid darkorange;
     padding: 5px;
-    text-align: center;
 }
 
 .nodo-der {
     border: 2px solid darkblue;
     padding: 5px;
-    text-align: center;
 }
 

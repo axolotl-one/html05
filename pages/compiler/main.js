@@ -24,17 +24,18 @@ window.compilar = function() {
   console.log(AST);
   console.log(JSON.stringify(AST, null, 2));
   consola.value += JSON.stringify(AST, null, 2);
-  mapaAst.innerHTML += "<p>Armando Árbol AST</p>";
+  mapaAst.innerHTML = "<p>Árbol AST Generado: </p>";
   mapaAst.append(crearDivNodo(AST));
 }
 
 const CLASETOKEN = {
   ID: "Identificador",
-  NUMERO: "Número",
+  ENTERO: "Número Entero",
+  DECIMAL: "Número Racional",
   RESERVADO: "Palabra Reservada",
   DECLARADOR: "Declarador de Tipo",
   DELIMITADOR: "Delimitador",
-  BOOLEANDO: "Booleano",
+  BOOLEANO: "Booleano",
   STRING: "Cadena de Caracteres",
   OPERADOR: "Operador",
   IGNORADO: "Espacios/Saltos/Comentarios",
@@ -47,15 +48,15 @@ function generarTokens(input) {
   // Definir las reglas de los tokens
   const reglas = [
     { tipo: CLASETOKEN.DELIMITADOR, regex: /^[(){};,\[\]]/ },
-    { tipo: CLASETOKEN.NUMERO, regex: /^[0-9]+/ },
+    { tipo: CLASETOKEN.ENTERO, regex: /^[0-9\-]+/ },
     { tipo: CLASETOKEN.IGNORADO, regex: /^(\/\*)([^\/\*]*)(\*\/)/}, //Comentario en bloque
     { tipo: CLASETOKEN.IGNORADO, regex: /^(\/\/)([^\/\*]*)\n/}, //Comentario en linea
     { tipo: CLASETOKEN.OPERADOR, regex: /^(==|>=|<=|!=|\|\||&&|\+\+|--|\+=|-=|\*=|\/=)/ },
     { tipo: CLASETOKEN.OPERADOR, regex: /^[+\-*/=%!><]/ },
     { tipo: CLASETOKEN.STRING, regex: /^"([^"]*)"|^'([^']*)'/ },
-    { tipo: CLASETOKEN.DECLARADOR, regex: /^(int|float|string|void|bool|object)/ },
+    { tipo: CLASETOKEN.DECLARADOR, regex: /^(int|decimal|string|void|bool|object)/ },
     { tipo: CLASETOKEN.RESERVADO, regex: /^(if|else|while|for|return|public|private)/ },
-    { tipo: CLASETOKEN.BOOLEANDO, regex: /^(true|false)/ },
+    { tipo: CLASETOKEN.BOOLEANO, regex: /^(true|false)/ },
     { tipo: CLASETOKEN.ID, regex: /^[a-zA-Z_$][a-zA-Z0-9_$]*/ },
     { tipo: CLASETOKEN.IGNORADO, regex: /^\s+/ }, // Espacios en blanco
     { tipo: CLASETOKEN.IGNORADO, regex: /^\n+/ }, // Saltos de Linea
@@ -114,21 +115,25 @@ function armarAST() {
   if(Gtokens[1]) console.log("token2: ", Gtokens[1].valor); else console.log("Sin token 2");
   console.log("Gtokens: ", Gtokens);
   console.log("length: ", Gtokens.length);
+
+  
   if(token.valor === "origen"){
     nodo.izquierda = armarAST();
-    Gtokens.unshift({tipo: "NB", valor: "NB"});
+    Gtokens.unshift({tipo: "INSTRUCCION", valor: "Nueva Instrucción"});
     console.log(Gtokens);
     nodo.derecha = armarAST();
     return nodo;
   }
 
-  if(token.tipo === "NB"){
+  if(token.tipo === "INSTRUCCION"){
     nodo.izquierda = armarAST();
     if(Gtokens[0]){
-      Gtokens.unshift({tipo:"NB", valor: "NB"});
+      Gtokens.unshift({tipo:"INSTRUCCION", valor: "Nueva Instrucción"});
       nodo.derecha = armarAST();
     } else return nodo;
   }
+
+ 
 
   if(token.tipo === CLASETOKEN.DECLARADOR){
     if(Gtokens[0].tipo !== CLASETOKEN.ID) return new ErrorSintactico("Declarador " + token.valor + " no recibe un ID");
@@ -148,54 +153,30 @@ function armarAST() {
     return nodo;
   }
 
-  if(token.valor = "if"){
-    if(Gtokens[0].valor !== "(") return new ErrorSintactico("El condicional if debe contener una condición entre paréntesis")
-    if(Gtokens[1].valor === ")") return new ErrorSintactico("El condicional if debe contener una condición")
-  }
-
-  if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
-  if(nodo.derecha instanceof ErrorSintactico) return nodo.derecha;
-  return nodo;
-}
-
-function armarASTX(nodo, tokens, i) {
-  if(nodo.raiz === ";") return nodo;
-  if(i >= tokens.length) return;
-  if(nodo.raiz === "origen"){
-    nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
-    nodo.derecha = armarAST(new NodoToken("nuevo bloque"), tokens, i)
+  if(token.valor == "if"){
+    if(Gtokens[0].valor !== "(") return new ErrorSintactico("El condicional if debe contener una condición entre paréntesis");
+    if(Gtokens[1].valor === ")") return new ErrorSintactico("El condicional if debe contener una condición");
+    Gtokens.unshift({tipo: "PARAMETROS", valor: "Parametro Bool"});
+    nodo.izquierda = armarAST();
     return nodo;
   }
 
-  if(nodo.raiz === "nuevo bloque"){
-    i = contarNodos(i)
-    nodo.izquierda = ""
+  if(token.tipo === "PARAMETROS"){
+    if(Gtokens[0] !== "(") return new ErrorSintactico("Los parámetros deben de estar entre paréntesis");
+    if(Gtokens[1] !== CLASETOKEN.RESERVADO) return new ErrorSintactico("No puedes ocupar palabras reservadas como parámetro");
+    if(token.valor === "Parametro Bool") {
+      Gtokens.unshift({tipo: "OPERACION_LOGICA", valor: "Operación Lógica"});
+      nodo.izquierda = armarAST();
+    }
+    return nodo;
   }
 
-  if(nodo.raiz === "string"){
-    tokens[++i].tipo === CLASETOKEN.ID
-      ? nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
-      : nodo = new ErrorSintactico("Declarador string no recibe un ID");
-    tokens[++i].valor === "="
-      ? nodo.derecha = armarAST(new NodoToken(tokens[i].valor), tokens, i)
-      : nodo = new ErrorSintactico("Declarador string no utiliza el operado de asignación: \"=\".")
-    return nodo;
+  if(token.tipo === "OPERACION_LOGICA"){
+    if(Gtokens[0].tipo === CLASETOKEN.RESERVADO) return ErrorSintactico("La Operación Lógica no debe contener palabras reservadas");
+    if(Gtokens[0].tipo === CLASETOKEN.DECLARADOR) return ErrorSintactico("La Operación Lógica no debe contener declaradores de tipo");
+    if(Gtokens[0].valor === "!") { nodo.izquierda = armarAST(); }
   }
-  if(nodo.raiz === "="){
-    tokens[++i].valor !== ";"
-      ? nodo.izquierda = armarAST(new NodoToken(tokens[i].valor), tokens, i)
-      : nodo = new ErrorSintactico("La asignación esta vacía");
-    tokens[++i].tipo === CLASETOKEN.OPERADOR || tokens[i].valor === ";"
-      ? nodo.derecha = armarAST(new NodoToken(tokens[i].valor), tokens, i)
-      : nodo = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
-    return nodo;
-  }
-  if(tokens[i].tipo === CLASETOKEN.ID){
-    return nodo
-  }
-  if(tokens[i].tipo === CLASETOKEN.STRING){
-    return nodo
-  }
+
   if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
   if(nodo.derecha instanceof ErrorSintactico) return nodo.derecha;
   return nodo;
@@ -207,6 +188,8 @@ function contarNodos(arbol) {
 }
 
 function crearDivNodo(nodo) {
+  if(nodo.derecha instanceof ErrorSintactico) return;
+  if(nodo.izquierda instanceof ErrorSintactico) return;
   const div = document.createElement("div");
   div.classList.add("nodo-ast");
   const raiz = document.createElement("div");
