@@ -146,10 +146,10 @@ function armarAST() {
   if(nodo.raiz === "="){
     Gtokens[0].valor !== ";"
       ? nodo.izquierda = armarAST()
-      : nodo = new ErrorSintactico("La asignación esta vacía");
+      : nodo.izquierda = new ErrorSintactico("La asignación esta vacía");
     Gtokens[0].tipo === CLASETOKEN.OPERADOR || Gtokens[0].valor === ";"
       ? nodo.derecha = armarAST()
-      : nodo = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
+      : nodo.derecha = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
     return nodo;
   }
 
@@ -162,12 +162,13 @@ function armarAST() {
   }
 
   if(token.tipo === "PARAMETROS"){
-    if(Gtokens[0] !== "(") return new ErrorSintactico("Los parámetros deben de estar entre paréntesis");
-    if(Gtokens[1] !== CLASETOKEN.RESERVADO) return new ErrorSintactico("No puedes ocupar palabras reservadas como parámetro");
+    if(Gtokens[0].valor !== "(") return new ErrorSintactico("Los parámetros deben de estar entre paréntesis");
+    if(Gtokens[1].tipo === CLASETOKEN.RESERVADO) return new ErrorSintactico("No puedes ocupar palabras reservadas como parámetro");
     if(token.valor === "Parametro Bool") {
       Gtokens.unshift({tipo: "OPERACION_LOGICA", valor: "Operación Lógica"});
       nodo.izquierda = armarAST();
     }
+    if(token.valor === ")") nodo.derecha = armarAST();
     return nodo;
   }
 
@@ -175,6 +176,12 @@ function armarAST() {
     if(Gtokens[0].tipo === CLASETOKEN.RESERVADO) return ErrorSintactico("La Operación Lógica no debe contener palabras reservadas");
     if(Gtokens[0].tipo === CLASETOKEN.DECLARADOR) return ErrorSintactico("La Operación Lógica no debe contener declaradores de tipo");
     if(Gtokens[0].valor === "!") { nodo.izquierda = armarAST(); }
+  }
+
+  if(token.valor === "!"){
+    if(Gtokens[0].tipo === CLASETOKEN.RESERVADO) return ErrorSintactico("La Operación Lógica no debe contener palabras reservadas");
+    nodo.izquierda = armarAST();
+    return nodo;
   }
 
   if(nodo.izquierda instanceof ErrorSintactico) return nodo.izquierda;
@@ -188,8 +195,12 @@ function contarNodos(arbol) {
 }
 
 function crearDivNodo(nodo) {
-  if(nodo.derecha instanceof ErrorSintactico) return;
-  if(nodo.izquierda instanceof ErrorSintactico) return;
+  if(nodo instanceof ErrorSintactico){
+    const error = document.createElement("div")
+    error.textContent = "Error Sintáctico: " + nodo.error
+    error.classList.add("nodo-error");
+    return error;
+  }
   const div = document.createElement("div");
   div.classList.add("nodo-ast");
   const raiz = document.createElement("div");

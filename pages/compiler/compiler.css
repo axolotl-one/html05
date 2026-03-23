@@ -29,24 +29,34 @@ section, textarea{
 
 .nodo-ast {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /*grid-template-columns: 1fr 1fr;*/
+    grid-template-columns: auto auto;
     text-align: center;
     gap: 5px;
 }
 
 .nodo-raiz {
     grid-column: 1 / span 2;
-    border: 2px solid darkgreen;
+    border: 3px solid darkgreen;
     padding: 5px;
 }
 
 .nodo-izq{
-    border: 2px solid darkorange;
+    border: 3px solid darkorange;
     padding: 5px;
 }
 
 .nodo-der {
-    border: 2px solid darkblue;
+    border: 3px solid darkblue;
     padding: 5px;
 }
 
+.nodo-error {
+    color: #eeeeee;
+    background-color: firebrick;
+}
+
+#ast {
+    min-width: max-content;
+    overflow-x: auto;
+}
