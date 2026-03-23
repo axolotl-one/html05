@@ -2,7 +2,7 @@ const editor = document.getElementById("codigo-fuente");
 const consola = document.getElementById("consola");
 const mapaAst = document.getElementById("ast");
 //editor.value = "public void main() {\n   Console.WriteLine(\"Hola Mundo...!\");\n   Console.ReadKey(true);\n}"
-editor.value = "string c = \"hola\";\nstring v = c;";
+editor.value = "string c = \"hola\";\nstring v = c;\nif(c == v) {\n   int n = 5;\n   string z = \"Parser OK\";\n}\nelse {\n   int n = 4;\n}";
 const Gtokens = [];
 
 window.verSection = function(selector, id){
@@ -38,6 +38,10 @@ const CLASETOKEN = {
   BOOLEANO: "Booleano",
   STRING: "Cadena de Caracteres",
   OPERADOR: "Operador",
+  BLOQUE: "Nuevo Bloque",
+  INSTRUCCION: "Nueva Instrucción",
+  PARAMETRO_BOOL: "Parametro Booleano",
+  CONDICION_BOOL: "Condición Lógica",
   IGNORADO: "Espacios/Saltos/Comentarios",
 };
 
@@ -109,32 +113,45 @@ function armarAST() {
   const nodo = new NodoToken(token.valor);
 
   if(token.valor === ";") return nodo;
+  if(token.valor === ")") return nodo;
+  //if(token.valor === "}") return nodo;
   console.log("nodo: ", nodo.raiz);
   console.log("token0: ", token.valor);
   if(Gtokens[0]) console.log("token1: ", Gtokens[0].valor); else console.log("Sin token 1");
   if(Gtokens[1]) console.log("token2: ", Gtokens[1].valor); else console.log("Sin token 2");
   console.log("Gtokens: ", Gtokens);
   console.log("length: ", Gtokens.length);
-
+  
   
   if(token.valor === "origen"){
     nodo.izquierda = armarAST();
-    Gtokens.unshift({tipo: "INSTRUCCION", valor: "Nueva Instrucción"});
+    Gtokens.unshift({tipo: CLASETOKEN.INSTRUCCION, valor: "Nueva Instrucción"});
     console.log(Gtokens);
     nodo.derecha = armarAST();
     return nodo;
   }
-
-  if(token.tipo === "INSTRUCCION"){
+  
+  if(token.tipo === CLASETOKEN.INSTRUCCION){
     nodo.izquierda = armarAST();
+    if(!Gtokens[0]) return nodo;
+    if(Gtokens[0].valor === "}") { nodo.derecha = armarAST(); return nodo }
     if(Gtokens[0]){
-      Gtokens.unshift({tipo:"INSTRUCCION", valor: "Nueva Instrucción"});
+      Gtokens.unshift({tipo:CLASETOKEN.INSTRUCCION, valor: "Nueva Instrucción"});
       nodo.derecha = armarAST();
     } else return nodo;
   }
-
- 
-
+  
+  if(token.tipo === CLASETOKEN.BLOQUE){
+    nodo.izquierda = armarAST();
+    console.log("PROX TOKEN DER " +Gtokens[0].tipo + Gtokens[0].valor)
+    //if(Gtokens[0].valor !== "}") return ErrorSintactico("Se esperaba \"}\" para cerrar el bloque.");
+    if(Gtokens[0].valor === "}") { nodo.derecha = armarAST(); return nodo }
+    console.log("SE INICIO NUEVA INSTRUCCION CON: " + Gtokens[0].tipo + Gtokens[0].valor);
+    Gtokens.unshift({tipo:CLASETOKEN.INSTRUCCION, valor:"Nueva Instrucción"})
+    nodo.derecha = armarAST();
+    return nodo;
+  }
+  
   if(token.tipo === CLASETOKEN.DECLARADOR){
     if(Gtokens[0].tipo !== CLASETOKEN.ID) return new ErrorSintactico("Declarador " + token.valor + " no recibe un ID");
     nodo.izquierda = armarAST();
@@ -142,40 +159,69 @@ function armarAST() {
     nodo.derecha = armarAST();
     return nodo;
   }
-
+  
   if(nodo.raiz === "="){
     Gtokens[0].valor !== ";"
-      ? nodo.izquierda = armarAST()
-      : nodo.izquierda = new ErrorSintactico("La asignación esta vacía");
+    ? nodo.izquierda = armarAST()
+    : nodo.izquierda = new ErrorSintactico("La asignación esta vacía");
     Gtokens[0].tipo === CLASETOKEN.OPERADOR || Gtokens[0].valor === ";"
-      ? nodo.derecha = armarAST()
-      : nodo.derecha = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
+    ? nodo.derecha = armarAST()
+    : nodo.derecha = new ErrorSintactico("Falta punto y coma después de: " + nodo.raiz + ".")
     return nodo;
   }
-
-  if(token.valor == "if"){
+  
+  if(token.tipo === CLASETOKEN.OPERADOR){
+    if((Gtokens[0].valor !== ")") && ([CLASETOKEN.ID, CLASETOKEN.ENTERO, CLASETOKEN.DECIMAL].indexOf(Gtokens[0].tipo) === -1))
+      return new ErrorSintactico("Error en " + Gtokens[0].valor + ". La operación \"" + token.valor + "\" solo puede realizarse con ID, Números, o Paréntesis.");
+    nodo.izquierda = armarAST();
+    nodo.derecha = armarAST();
+    return nodo;
+  }
+  
+  if(token.valor === "if"){
     if(Gtokens[0].valor !== "(") return new ErrorSintactico("El condicional if debe contener una condición entre paréntesis");
     if(Gtokens[1].valor === ")") return new ErrorSintactico("El condicional if debe contener una condición");
-    Gtokens.unshift({tipo: "PARAMETROS", valor: "Parametro Bool"});
+    Gtokens[0].tipo = CLASETOKEN.PARAMETRO_BOOL;
     nodo.izquierda = armarAST();
+    if(Gtokens[0].valor !== "{") return new ErrorSintactico("El condicional if debe contener un bloque de código iniciado con \"{\"");
+    Gtokens.unshift({tipo: CLASETOKEN.CONDICION_BOOL, valor: "CASOS"})
+    nodo.derecha = armarAST();
     return nodo;
   }
-
-  if(token.tipo === "PARAMETROS"){
-    if(Gtokens[0].valor !== "(") return new ErrorSintactico("Los parámetros deben de estar entre paréntesis");
-    if(Gtokens[1].tipo === CLASETOKEN.RESERVADO) return new ErrorSintactico("No puedes ocupar palabras reservadas como parámetro");
-    if(token.valor === "Parametro Bool") {
-      Gtokens.unshift({tipo: "OPERACION_LOGICA", valor: "Operación Lógica"});
+  
+  if(token.tipo === CLASETOKEN.PARAMETRO_BOOL){
+    if(Gtokens[0].tipo === CLASETOKEN.RESERVADO) return new ErrorSintactico("El parametro bool no recibe palabras reservadas");
+    if(Gtokens[0].valor === "!") { nodo.izquierda = armarAST(); return nodo }
+    if(Gtokens[0].valor === "(") {
+      Gtokens[0].tipo = CLASETOKEN.PARAMETRO_BOOL;
       nodo.izquierda = armarAST();
     }
-    if(token.valor === ")") nodo.derecha = armarAST();
+    if(Gtokens[0].tipo === CLASETOKEN.ID) nodo.izquierda = armarAST();
+    else if(Gtokens[0].tipo === CLASETOKEN.ENTERO) nodo.izquierda = armarAST();
+    else if(Gtokens[0].tipo === CLASETOKEN.DECIMAL) nodo.izquierda = armarAST();
+    else return new ErrorSintactico("La expresión lógica debe recibir un ID o un Número");
+    if(Gtokens[0].tipo === CLASETOKEN.OPERADOR) nodo.derecha = armarAST();
+    return nodo;
+  }
+  
+  if(token.tipo === CLASETOKEN.CONDICION_BOOL){
+    Gtokens[0].tipo = CLASETOKEN.BLOQUE;
+    //if(Gtokens[0].valor !== "}") return ErrorSintactico("Se esperaba \"}\" para cerrar el bloque.");
+    if(!Gtokens[0]) return new ErrorSintactico("Error inesperado del Parser");
+    if(!Gtokens[1]) return new ErrorSintactico("Error inesperado del Parser");
+    nodo.izquierda = armarAST();
+    if(Gtokens[0].valor === "else"){
+      if(Gtokens[1].valor !== "{" && Gtokens[1].valor !== "if")
+        return new ErrorSintactico("El condicional else debe contener un bloque iniciado con \"{\" o \"if\"");
+      nodo.derecha = armarAST();
+    }
     return nodo;
   }
 
-  if(token.tipo === "OPERACION_LOGICA"){
-    if(Gtokens[0].tipo === CLASETOKEN.RESERVADO) return ErrorSintactico("La Operación Lógica no debe contener palabras reservadas");
-    if(Gtokens[0].tipo === CLASETOKEN.DECLARADOR) return ErrorSintactico("La Operación Lógica no debe contener declaradores de tipo");
-    if(Gtokens[0].valor === "!") { nodo.izquierda = armarAST(); }
+  if(token.valor === "else"){
+    if(Gtokens[0].valor === "{") Gtokens[0].tipo = CLASETOKEN.BLOQUE;
+    nodo.izquierda = armarAST();
+    return nodo;
   }
 
   if(token.valor === "!"){
