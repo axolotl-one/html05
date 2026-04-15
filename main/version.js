@@ -1,1 +1,0 @@
-document.getElementById('version').textContent = 'V3.0.9 Implementación del Método por Aproximación de Vogel'

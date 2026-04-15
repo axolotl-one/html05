@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+nav {
+    display: grid;
+    min-height: 100dvh;
+    grid-template-rows: auto 1fr auto;
+    padding: 5px 8px;
+    gap: 5px;
+}
+
+.flexible {
+    color: darkgreen;
+}
+
+.limitado {
+    color: darkgoldenrod;
+}
+
+.estricto {
+    color: darkred;
+}
