@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./compiler.css">
+    <script type="module" src="./main.js" defer></script>
+    <title>Compilador online</title>
+</head>
+<body>
+<nav>
+<header>
+    <h1>Compilador Básico
+        <button onclick="verSection('section','compiler')">Editor</button>
+        <button onclick="verSection('section','ast')">Árbol AST</button>
+        <button onclick="compilar()">Ejecutar</button></h1>
+</header>
+<main>
+    <section id="compiler">
+        <textarea id="codigo-fuente" autocorrect="off" spellcheck="false"></textarea>
+        <textarea id="consola" readonly></textarea>
+    </section>
+    <section id="ast" style="display: none;">
+    </section>
+</main>
+<footer>
+    <details>
+        <summary id="version-legend"></summary>
+        <div id="version-readme"></div>
+        <p>Elaboró: Equipo 10 (ICO-OC) - 2026A</p>
+    </details>
+</footer>
+</nav>
+<script src="../../main/get-version.js"></script>
+</body>
+</html>
