@@ -1,0 +1,1067 @@
+//1 ENTRADA DE DATOS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let nombre; 
+        let edad;
+        let sexo;
+        nombre = prompt('INGRESA TU NOMBRE:');
+        edad = prompt('Ingrese su edad:');
+        sexo = prompt('Ingresa que sexo eres:');
+        document.write('Hola ');
+        document.write(nombre);
+        document.write(' asi que tienes ');
+        document.write(edad);
+        document.write(' años');
+        document.write(' y tu sexo es');
+        document.write( años);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//2 ESTRUCTURAS SECUENCIALES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor1;
+        let valor2;
+        valor1 = prompt('Ingrese primer número:');
+        valor2 = prompt('Ingrese segundo número');
+        let suma = parseInt(valor1) + parseInt(valor2);
+        let producto = parseInt(valor1) * parseInt(valor2);
+        document.write('La suma es ');
+        document.write(suma);
+        document.write('<br>');
+        document.write('El producto es ');
+        document.write(producto);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//3 ESTRUCTURAS CONDICIONALES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let nombre;
+        let nota;
+        nombre = prompt('Ingrese nombre:');
+        nota = parseInt(prompt('Ingrese su nota:'));
+        if (nota >= 4) {
+            document.write(nombre + ' esta aprobado con un ' + nota);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//4 ESTRUCTURAS CONDICIONALES COMPUESTAS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let num1, num2;
+        num1 = parseInt(prompt('Ingrese el primer número:'));
+        num2 = parseInt(prompt('Ingrese el segundo número:'));
+        if (num1 > num2) {
+            document.write('el mayor es ' + num1);
+        } else {
+            document.write('el mayor es ' + num2);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//5 ESTRUCTURAS CONDICIONALES ANIDADAS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let cal1, cal2, cal3;
+        cal1 = prompt('Ingrese 1ra. Calificacion: ');
+        cal2 = prompt('Ingrese 2da. Calificacion: ');
+        cal3 = prompt('Ingrese 3ra. Calificacion: ');
+        //Convertimos los 3 string en enteros
+        cal1 = parseInt(cal1);
+        cal2 = parseInt(cal2);
+        cal3 = parseInt(cal3);
+       
+o;
+        pro = (cal1 + cal2 + cal3) / 3;
+        if (pro >= 7) {
+            document.write('pasaste  n_n');
+        } else {
+            if (pro == 6) {
+                document.write('hechale ganas bro');
+            } else {
+                document.write('reprobado hechale mas ganas');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//6 OPERADORES LOGICOS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let num1, num2, num3;
+        num1 = prompt('Ingrese primer número:');
+        num2 = prompt('Ingrese segundo número:');
+        num3 = prompt('Ingrese tercer número:');
+        num1 = parseInt(num1);
+        num2 = parseInt(num2);
+        num3 = parseInt(num3);
+        if (num1 > num2 && num1 > num3) {
+            document.write('el mayor es el ' + num1);
+        } else {
+            if (num2 > num3) {
+                document.write('el mayor es el ' + num2);
+            } else {
+            if (num3 > num4)
+                document.write('el mayor es el ' + num3);
+else 
+document.write('el mayor es el ' + num3);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+7 OPERADORES LOGICOS CON CONDICIONAL
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let dia, mes, año;
+        dia = parseInt(prompt('Ingrese día:'));
+        mes = parseInt(prompt('Ingrese mes:'));
+        año = parseInt(prompt('Ingrese año:'));
+        if (mes == 1 || mes == 2 || mes == 3) {
+            document.write('corresponde al primer trimestre del año.');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//8 SWITCH
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor;
+        valor = parseInt(prompt('Ingrese un valor comprendido entre 1 y 5:'));
+        switch (valor) {
+            case 1:
+                document.write('uno');
+                break;
+            case 2:
+                document.write('dos');
+                break;
+            case 3:
+                document.write('tres');
+                break;
+            case 4:
+                document.write('cuatro');
+                break;
+            case 5:
+                document.write('cinco');
+                break;
+            default:
+                document.write('debe ingresar un valor comprendido entre 1 y 5.');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//9 WHILE
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let x;
+        x = 1;
+        while (x <= 100) {
+            document.write(x);
+            document.write('<br>');
+            x = x + 1;
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//10 PROBLEMA SOLUCION EJERCICIO
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let x = 1;
+        let suma = 0;
+        let valor;
+        while (x <= 5) {
+            valor = parseInt(prompt('Ingrese valor:'));
+            suma = suma + valor;
+            x = x + 1;
+        }
+        document.write('La suma de los valores es ' + suma + '<br>');
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//11 DO WHILE
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let valor;
+        do {
+            valor = parseInt(prompt('Ingrese un valor entre 0 y 999:', ''));
+            document.write('El valor ' + valor + ' tiene ');
+            if (valor < 10) {
+                document.write('Tiene 1 digitos');
+            } else {
+                if (valor < 100) {
+                    document.write('Tiene 2 digitos');
+                } else {
+                    document.write('Tiene 3 digitos');
+                }
+            }
+            document.write('<br>');
+        } while (valor != 0);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//12 FOR
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        for (let f = 1; f <= 10; f++) {
+            document.write(f + " ");
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//13A SIN FUNCIONES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+        document.write("Cuidado<br>");
+        document.write("Ingrese su documento correctamente<br>");
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//13B CON FUNCIONES
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function mostrarMensaje() {
+            document.write("Cuidado<br>");
+            document.write("Ingrese su documento correctamente<br>");
+        }
+
+        mostrarMensaje();
+        mostrarMensaje();
+        mostrarMensaje();
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//14 FUNCIONES CON PARAMETROS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function mostrarComprendidos(inicio, fin) {
+            for (let f = inicio; f <= fin; f++) {
+                document.write(f + ' ');
+            }
+        }
+
+        let valor1 = parseInt(prompt('Ingrese valor inferior:'));
+        let valor2 = parseInt(prompt('Ingrese valor superior:'));
+        mostrarComprendidos(valor1, valor2);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//15 FUNCIONES DE RETORNO
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function convertirCastellano(x) {
+            if (x == 1) {
+                return "uno";
+            } else {
+                if (x == 2) {
+                    return "dos";
+                } else {
+                    if (x == 3) {
+                        return "tres";
+                    } else {
+                        if (x == 4) {
+                            return "cuatro";
+                        } else {
+                            if (x == 5) {
+                                return "cinco";
+                            } else {
+                                return "valor incorrecto";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        let valor = parseInt(prompt("Ingrese un valor entre 1 y 5"));
+        let r = convertirCastellano(valor);
+        document.write(r);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//16 CLASE DATE
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function mostrarFechaHora() {
+            let fecha;
+            fecha = new Date();
+            document.write('Hoy es ');
+            document.write(fecha.getDate() + '/');
+            document.write((fecha.getMonth() + 1) + '/');
+            document.write(fecha.getFullYear());
+            document.write('<br>');
+            document.write('Es la hora ');
+            document.write(fecha.getHours() + ':');
+            document.write(fecha.getMinutes() + ':');
+            document.write(fecha.getSeconds());
+        }
+
+        //Llamada a la función
+        mostrarFechaHora();
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+//17 CLASE ARRAY
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        function cargar(sueldos) {
+            for (let f = 0; f < sueldos.length; f++) {
+                let v = prompt('Ingrese sueldo:');
+                sueldos[f] = parseInt(v);
+            }
+        }
+
+        function calcularGastos(sueldos) {
+            let total = 0;
+            for (let f = 0; f < sueldos.length; f++) {
+                total = total + sueldos[f];
+            }
+            document.write('Listado de sueldos<br>');
+            for (let f = 0; f < sueldos.length; f++) {
+                document.write(sueldos[f] + '<br>');
+            }
+            document.write('Total de gastos en sueldos:' + total);
+        }
+
+        let sueldos;
+        sueldos = new Array(5);
+        cargar(sueldos);
+        calcularGastos(sueldos);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//18 CLASE MATH
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let selec = parseInt(prompt('Ingrese un valor entre 1 y 10'));
+        let num = parseInt(Math.random() * 10) + 1;
+        if (num == selec)
+            document.write('Ganó el número que se sorteó es el ' + num);
+        else
+            document.write('Lo siento se sorteó el valor ' + num + ' y usted eligió el ' + selec);
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//19 CLASE STRING
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <script>
+        let cadena = prompt('Ingrese una cadena:');
+        document.write('La cadena ingresada es:' + cadena);
+        document.write('<br>');
+        document.write('La cantidad de caracteres son:' + cadena.length);
+        document.write('<br>');
+        document.write('El primer carácter es:' + cadena.charAt(0));
+        document.write('<br>');
+        document.write('Los primeros 3 caracteres son:' + cadena.substring(0, 3));
+        document.write('<br>');
+        if (cadena.indexOf('hola') != -1) {
+            document.write('Se ingresó la subcadena hola');
+        } else {
+            document.write('No se ingresó la subcadena hola');
+        }
+        document.write('<br>');
+        document.write('La cadena convertida a mayúsculas es:' + cadena.toUpperCase());
+        document.write('<br>');
+        document.write('La cadena convertida a minúsculas es:' + cadena.toLowerCase());
+        document.write('<br>');
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//20 FORMULARIOS Y EVENTOS
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <input type="button" onClick="incrementar()" value="incrementar">
+    </form>
+
+    <script>
+        let contador = 0;
+
+        function incrementar() {
+            contador++;
+            alert('El contador ahora vale :' + contador);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//21 CONTROLES BUTTON Y TEXT
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <p>Ingrese su nombre:<input type="text" id="nombre"></p>
+        <p>Ingrese su edad:<input type="text" id="edad"></p>
+        <p><input type="button" value="Confirmar" onClick="mostrar()"></p>
+    </form>
+
+    <script>
+        function mostrar() {
+            let nom = document.getElementById('nombre').value;
+            let ed = document.getElementById('edad').value;
+            alert('Ingresó el nombre:' + nom);
+            alert('Y la edad:' + ed);
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//22 CONTROL PASSWORD
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        Ingrese una clave:
+        <input type="password" id="clave">
+        <br>
+        <input type="button" value="Confirmar" onClick="verificar()">
+    </form>
+
+    <script>
+        function verificar() {
+            let clave = document.getElementById('clave').value;
+            if (clave.length < 5) {
+                alert('La clave no puede tener menos de 5 caracteres!!!');
+            } else {
+                alert('Largo de clave correcta');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//23 CONTROL SELECT
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <p><select id="select1" onChange="cambiarColor()">
+            <option value="ff0000">Rojo</option>
+            <option value="00ff00">Verde</option>
+            <option value="0000ff">Azul</option>
+        </select></p>
+        <p>Número de índice seleccionado del objeto SELECT:<input type="text" id="text1"></p>
+        <p>Texto seleccionado:<input type="text" id="text2"></p>
+        <p> Valor asociado:<input type="text" id="text3"></p>
+    </form>
+
+    <script>
+        function cambiarColor() {
+            let seleccion = document.getElementById('select1');
+            document.getElementById('text1').value = seleccion.selectedIndex;
+            document.getElementById('text2').value = seleccion.options[seleccion.selectedIndex].text;
+            document.getElementById('text3').value = seleccion.options[seleccion.selectedIndex].value;
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//24 CHECKBOX
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <input type="checkbox" id="checkbox1">JavaScript
+        <br>
+        <input type="checkbox" id="checkbox2">PHP
+        <br>
+        <input type="checkbox" id="checkbox3">JSP
+        <br>
+        <input type="checkbox" id="checkbox4">VB.Net
+        <br>
+        <input type="button" value="Mostrar" onClick="contarSeleccionados()">
+    </form>
+
+    <script>
+        function contarSeleccionados() {
+            let cant = 0;
+            if (document.getElementById('checkbox1').checked) {
+                cant++;
+            }
+            if (document.getElementById('checkbox2').checked) {
+                cant++;
+            }
+            if (document.getElementById('checkbox3').checked) {
+                cant++;
+            }
+            if (document.getElementById('checkbox4').checked) {
+                cant++;
+            }
+            alert('Conoce ' + cant + ' lenguajes');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//25 CONTROL RADIO
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <input type="radio" id="radio1" name="estudios">Sin estudios
+        <br>
+        <input type="radio" id="radio2" name="estudios">Primarios
+        <br>
+        <input type="radio" id="radio3" name="estudios">Secundarios
+        <br>
+        <input type="radio" id="radio4" name="estudios">Universitarios
+        <br>
+        <input type="button" value="Mostrar" onClick="mostrarSeleccionado()">
+    </form>
+
+    <script>
+        function mostrarSeleccionado() {
+            if (document.getElementById('radio1').checked) {
+                alert('no tienes estudios');
+            }
+            if (document.getElementById('radio2').checked) {
+                alert('tienes estudios primarios');
+            }
+            if (document.getElementById('radio3').checked) {
+                alert('tienes estudios secundarios');
+            }
+            if (document.getElementById('radio4').checked) {
+                alert('tienes estudios universitarios');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+//26 CONTROL TEXT AREA
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ejemplo de JavaScript</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <form>
+        <p><textarea id="curriculum" rows="10" cols="50"></textarea></p>
+        <p><input type="button" value="Mostrar" onClick="controlarCaracteres()"></p>
+    </form>
+
+    <script>
+        function controlarCaracteres() {
+            if (document.getElementById('curriculum').value.length > 2000) {
+                alert('curriculum muy largo');
+            } else {
+                alert('datos correctos');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
