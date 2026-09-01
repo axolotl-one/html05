@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Graficación Computacional</title>
+    <script src="./functions.js"></script>
+</head>
+<body>
+<nav>
+<header>
+    <h1>GRAFICACIÓN COMPUTACIONAL</h1>
+</header>
+<main>
+    <section id="cod01">
+        <h2>INTRODUCCIÓN A CANVAS CÓDIGOS DEL 3 AL 7</h2>
+        <article>
+            <h3>Implementación de un Lienzo Canvas</h3>
+            <h4 onclick="cargarCanvas('LZ03A', cuadrado)">Trazo de un Cuadrado</h4>
+            <canvas id="LZ03A" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>Trazo de Lineas</h3>
+            <h4 onclick="cargarCanvas('LZ04A', letraV)">Trazo de letra V</h4>
+            <canvas id="LZ04A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ04B', cuadricula)">Trazo de una Cuadricula 10x10</h4>
+            <canvas id="LZ04B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>Poligonos</h3>
+            <h4 onclick="cargarCanvas('LZ05A', rectangulo)">Trazo de un Rectangulo</h4>
+            <canvas id="LZ05A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ05B', tresCuadrados)">Trazo de Tres Cuadrados</h4>
+            <canvas id="LZ05B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>Estilos para Lineas</h3>
+            <h4 onclick="cargarCanvas('LZ06A', lineas)">Trazo de Varias Lineas</h4>
+            <canvas id="LZ06A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ06B', triangulo)">Trazo de un Triángulo de esquinas redondeadas</h4>
+            <p>Dibujar un triángulo con líneas de 20 píxeles de ancho y los vértices redondeados.</p>
+            <canvas id="LZ06B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>Rellenos</h3>
+            <h4 onclick="cargarCanvas('LZ07A', relleno)">Relleno de Rectángulos</h4>
+            <canvas id="LZ07A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ07B', degradado)">Relleno Degradado de Cuadros</h4>
+            <p>Dibujar 250 cuadraditos (50 por línea) Los colores de los cuadrados deben empezar en negro y avanzar hasta el rojo.</p>
+            <canvas id="LZ07B" width="300px" height="200px"></canvas>
+            <h4 onclick="cargarCanvas('LZ07C', degradados)">Otros Rellenos Degradados</h4>
+            <canvas id="LZ07C" width="300px" height="950px"></canvas>
+        </article>
+    </section>
+    <section id="cod02">
+        <h2 onclick="cargarCanvas('LZ01A', garabatos)">TRAZOS DE FIGURAS (18/08/2026)</h2>
+        <canvas id="LZ01A" width="500px" height="500px"></canvas>
+    </section>
+    <section id="cod03">
+        <h2 onclick="cargarCanvas('LZ02A', axel)">TRAZO DE NOMBRE (24/08/2026)</h2>
+        <canvas id="LZ02A" width="500px" height="500px"></canvas>
+    </section>
+    <section id="cod04">
+        <h2>CANVAS CODIGOS 8 - 12 (31/08/2026)</h2>
+        <article>
+            <h3>08. Borrado de Trazo</h3>
+            <h4 onclick="cargarCanvas('LZ08A', borrado)">Borrado Rectangular</h4>
+            <canvas id="LZ08A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ08B', temporal)">Borrado Programado</h4>
+            <p>Dibujar un cuadrado. Luego de 3 segundos hacer que se borre.</p>
+            <canvas id="LZ08B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>09. Contornos</h3>
+            <h4 onclick="cargarCanvas('LZ09A', contraste)">Bordes y Rellenos</h4>
+            <p>Dibujar un triángulo con el color de perímetro azul y su interior de color rojo. El borde del perímetro debe ser de 5 píxeles.</p>
+            <canvas id="LZ09A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ09B', paralelogramo)">Paralelogramo</h4>
+            <p>Dibujar un paralelogramo de color verde.</p>
+            <canvas id="LZ09B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>10. Arcos y Curvas</h3>
+            <h4 onclick="cargarCanvas('LZ10A', arcos)">Trazo de Arcos</h4>
+            <p>Mostrar una serie de arcos lineales y cerrados.</p>
+            <canvas id="LZ10A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ10B', animacion)">Animación Pac-Man</h4>
+            <p>Mostrar un círculo que se desplace de izquierda a derecha. Cada vez que llega a la columna 300 reiniciar en columna 0.</p>
+            <canvas id="LZ10B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>11. Curvas de Bezier</h3>
+            <h4 onclick="cargarCanvas('LZ11A', bezier)">Trazo con Bezier</h4>
+            <canvas id="LZ11A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ11B', ondas)">Animación de Ondas con Bezier</h4>
+            <p>Crear una curva de bézier y que actualizé los valores de los puntos de atracción en intervalos de tiempo</p>
+            <canvas id="LZ11B" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>12. Curvas Cuadraticas</h3>
+            <h4 onclick="cargarCanvas('LZ12A', curvaCuadratica)">Parabola con Método quadraticCurveTo()</h4>
+            <canvas id="LZ12A" width="300px" height="300px"></canvas>
+        </article>
+        <article>
+            <h3>13. Graficación de Textos</h3>
+            <h4 onclick="cargarCanvas('LZ13A', pruebaTexto)">Gráfica de Hola Mundo!</h4>
+            <canvas id="LZ13A" width="300px" height="300px"></canvas>
+            <h4 onclick="cargarCanvas('LZ13B', getFecha)">Obtener la Fecha Actual</h4>
+            <canvas id="LZ13B" width="400px" height="300px"></canvas>
+        </article>
+    </section>
+    <section>
+        <h2>Producto Cruz</h2>
+        <p>Ingresa valores del vector A:</p>
+        <input type="number" id="inpA1" inputmode="numeric" required>
+        <input type="number" id="inpA2" inputmode="numeric" required>
+        <input type="number" id="inpA3" inputmode="numeric" required>
+        <p>Ingresa valores del vector B</p>
+        <input type="number" id="inpB1" inputmode="numeric" required>
+        <input type="number" id="inpB2" inputmode="numeric" required>
+        <input type="number" id="inpB3" inputmode="numeric" required>
+        <button onclick="productoCruz()">Calcular</button>
+        <div id="procesoCruz"></div>
+        <canvas id="LZ20A" width="500px" height="500px"></canvas>
+    </section>
+</main>
+<footer>
+    <h5>V5.0.0 - Elaboró: Axel López @axolotl-one</h5>
+</footer>
+</nav>
+</body>
+</html>
