@@ -411,3 +411,53 @@ function productoCruz(){
   r.innerHTML += "<p>(" + a[0] + ")(" + b[1] + ") - (" + a[1] + ")(" + b[0] + ") = (" + paxb[2] + ") - ( + " + naxb[2] + ") = " +  axb[2] + "</p>";
   r.innerHTML += "<p>Producto Cruz AXB: &lt; " + axb[0] + " , " + axb[1] + " , " + axb[2] + "></p>"; 
 }
+
+function pino(lienzo){
+  lienzo.strokeStyle = "rgb(80,50,0)";
+  lienzo.fillStyle = "rgb(110,70,20)";
+  lienzo.lineWidth = 5;
+  lienzo.beginPath();
+  lienzo.moveTo(140,150);
+  lienzo.lineTo(140,180);
+  lienzo.lineTo(160,180);
+  lienzo.lineTo(160,150);
+  lienzo.fill();
+  lienzo.stroke();
+
+  lienzo.strokeStyle = "rgb(20,150,50)";
+  lienzo.lineWidth = 5;
+  lienzo.lineCap = 'round';
+  lienzo.fillStyle = "rgb(20,180,50)";
+  lienzo.beginPath();
+  lienzo.moveTo(150,25);
+  lienzo.lineTo(175,60);
+  lienzo.lineTo(160,60);
+  lienzo.lineTo(190,100);
+  lienzo.lineTo(175,100);
+  lienzo.lineTo(210,150);
+  lienzo.lineTo(90,150);
+  lienzo.lineTo(125,100);
+  lienzo.lineTo(110,100);
+  lienzo.lineTo(140,60);
+  lienzo.lineTo(125,60);
+  lienzo.lineTo(150,25);
+  lienzo.fill();
+  lienzo.stroke();
+
+  lienzo.strokeStyle = "rgb(190,155,50)"
+  lienzo.fillStyle = "rgb(220,200,0)";
+  lienzo.beginPath();
+  lienzo.arc(175,60,7,0,Math.PI*2,true);
+  lienzo.moveTo(199,100);
+  lienzo.arc(190,100,9,0,Math.PI*2,true);
+  lienzo.moveTo(221,150);
+  lienzo.arc(210,150,11,0,Math.PI*2,true);
+  lienzo.moveTo(132,60);
+  lienzo.arc(125,60,7,0,Math.PI*2,true);
+  lienzo.moveTo(119,100);
+  lienzo.arc(110,100,9,0,Math.PI*2,true);
+  lienzo.moveTo(101,150);
+  lienzo.arc(90,150,11,0,Math.PI*2,true);
+  lienzo.fill();
+  lienzo.stroke();
+}
