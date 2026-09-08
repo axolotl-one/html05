@@ -425,7 +425,6 @@ function pino(lienzo){
   lienzo.stroke();
 
   lienzo.strokeStyle = "rgb(20,150,50)";
-  lienzo.lineWidth = 5;
   lienzo.lineCap = 'round';
   lienzo.fillStyle = "rgb(20,180,50)";
   lienzo.beginPath();
@@ -443,21 +442,62 @@ function pino(lienzo){
   lienzo.lineTo(150,25);
   lienzo.fill();
   lienzo.stroke();
+  
+  lienzo.lineWidth = 3;
+  let on = false;
+  setInterval(() => {
+    lienzo.strokeStyle =  on ? "rgb(190,155,50)" : "rgb(50,110,190)";
+    lienzo.fillStyle = on ? "rgb(220,200,0)" : "rgb(50,175,220)";
+    lienzo.beginPath();
+    lienzo.moveTo(150,7);
+    lienzo.lineTo(154,16);
+    lienzo.lineTo(162,16);
+    lienzo.lineTo(156,21);
+    lienzo.lineTo(159,30);
+    lienzo.lineTo(150,25);
+    lienzo.lineTo(141,30);
+    lienzo.lineTo(144,21);
+    lienzo.lineTo(138,16);
+    lienzo.lineTo(146,16);
+    lienzo.lineTo(150,7);
 
-  lienzo.strokeStyle = "rgb(190,155,50)"
-  lienzo.fillStyle = "rgb(220,200,0)";
-  lienzo.beginPath();
-  lienzo.arc(175,60,7,0,Math.PI*2,true);
-  lienzo.moveTo(199,100);
-  lienzo.arc(190,100,9,0,Math.PI*2,true);
-  lienzo.moveTo(221,150);
-  lienzo.arc(210,150,11,0,Math.PI*2,true);
-  lienzo.moveTo(132,60);
-  lienzo.arc(125,60,7,0,Math.PI*2,true);
-  lienzo.moveTo(119,100);
-  lienzo.arc(110,100,9,0,Math.PI*2,true);
-  lienzo.moveTo(101,150);
-  lienzo.arc(90,150,11,0,Math.PI*2,true);
-  lienzo.fill();
-  lienzo.stroke();
+
+    lienzo.moveTo(158,80);
+    lienzo.arc(150,80,8,0,Math.PI*2,true);
+
+    lienzo.moveTo(185,133);
+    lienzo.arc(175,133,10,0,Math.PI*2,true);
+
+    lienzo.moveTo(101,150);
+    lienzo.arc(90,150,11,0,Math.PI*2,true);
+
+    lienzo.fill();
+    lienzo.stroke();
+
+    lienzo.strokeStyle =  !on ? "rgb(130,160,180)" : "rgb(50,140,120)";
+    lienzo.fillStyle = !on ?  "rgb(170,220,230)" : "rgb(50,200,170)";
+    lienzo.beginPath();
+    lienzo.moveTo(132,60);
+    lienzo.arc(125,60,7,0,Math.PI*2,true);
+    lienzo.moveTo(199,100);
+    lienzo.arc(190,100,9,0,Math.PI*2,true);
+    lienzo.moveTo(150,117);
+    lienzo.arc(140,117,10,0,Math.PI*2,true);
+    lienzo.fill();
+    lienzo.stroke();
+
+    
+    lienzo.strokeStyle =  !on ? "rgb(160,95,180)" : "rgb(170,115,50)";
+    lienzo.fillStyle = !on ? "rgb(220,100,200)" : "rgb(240,150,80)";
+    lienzo.beginPath();
+    lienzo.moveTo(182,60);
+    lienzo.arc(175,60,7,0,Math.PI*2,true);
+    lienzo.moveTo(221,150);
+    lienzo.arc(210,150,11,0,Math.PI*2,true);
+    lienzo.moveTo(119,100);
+    lienzo.arc(110,100,9,0,Math.PI*2,true);
+    lienzo.fill();
+    lienzo.stroke();
+    on = !on;
+  }, 1000);
 }
